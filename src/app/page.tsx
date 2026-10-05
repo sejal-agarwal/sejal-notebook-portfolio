@@ -103,10 +103,10 @@ export default function Home() {
           </p>
           <div className="heroActions">
             <a className="button buttonPrimary" href="#work">
-              See my work <span aria-hidden="true">→</span>
+              Ready my blog <span aria-hidden="true">→</span>
             </a>
             <a className="button buttonSecondary" href="#log">
-              Read my blog
+              Contact me
             </a>
           </div>
         </div>
@@ -142,7 +142,7 @@ export default function Home() {
             </div>
           </div>
           <aside className="stickyNote">
-            currently a research intern,
+            research intern,
             agentic canvas experiences @ Autodesk
           </aside>
         </div>

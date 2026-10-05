@@ -333,7 +333,7 @@ h1 {
   background: var(--yellow);
   box-shadow: 0 9px 15px rgba(65, 54, 40, 0.13);
   font-family: var(--font-hand, var(--hand-fallback));
-  font-size: clamp(15px, 1.3vw, 18px);
+  font-size: clamp(17px, 1.5vw, 21px);
   font-style: italic;
   font-weight: 700;
   line-height: 1.2;
@@ -499,7 +499,7 @@ h1 {
   .intro { margin: 23px 0; font-size: 16px; line-height: 1.65; }
   .button { min-height: 50px; padding-inline: 17px; font-size: 15px; }
   .heroArt { width: min(100%, 380px); }
-  .stickyNote { padding: 10px 12px; font-size: 15px; }
+  .stickyNote { padding: 10px 12px; font-size: 17px; }
 }
 
 @media (max-width: 380px) {
