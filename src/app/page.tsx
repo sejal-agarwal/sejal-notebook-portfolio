@@ -124,7 +124,7 @@ export default function Home() {
             </span>
           </h1>
           <p className="intro">
-            Explore my software engineering experience, HCI research, and projects. On my blog, I share what I&apos;m learning about designing better, more human-centered digital experiences.
+            Welcome to my little corner of the internet! Here you'll find a collection of my software engineering work, HCI research, and various things I've been tinkering away at. I also write about what I'm learning, exploring, and thinking about when building human-centered technology.
           </p>
           <div className="heroActions">
             <a className="button buttonPrimary" href="#work">
