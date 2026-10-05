@@ -53,7 +53,7 @@ a:focus-visible {
   max-width: 1440px;
   flex-direction: column;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: clip;
   border: 1px solid rgba(108, 91, 67, 0.12);
   border-radius: 24px;
   background-color: var(--paper);
@@ -61,13 +61,13 @@ a:focus-visible {
   background-position: 7px 7px;
   background-size: 21px 21px;
   box-shadow: 0 12px 38px rgba(82, 65, 43, 0.08);
-  animation: page-arrive 700ms ease-out both;
+  animation: page-settle 720ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .binderRings {
   position: absolute;
   z-index: 1;
-  top: 16px;
+  top: 12px;
   left: 50%;
   display: flex;
   width: min(55%, 670px);
@@ -86,14 +86,34 @@ a:focus-visible {
 }
 
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 3;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-  padding: 46px clamp(28px, 5.4vw, 76px) 20px;
+  margin-bottom: 4px;
+  padding: 42px clamp(28px, 5.4vw, 76px) 30px;
 }
+
+.header::before {
+  position: absolute;
+  z-index: -1;
+  inset: 18px clamp(16px, 2.5vw, 36px) 6px;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 250, 240, 0.58));
+  box-shadow: 0 10px 28px rgba(41, 38, 46, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(18px) saturate(155%);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.headerScrolled::before { opacity: 1; }
 
 .wordmark {
   display: inline-flex;
@@ -169,8 +189,12 @@ a:focus-visible {
 .heroCopy {
   min-width: 0;
   padding-bottom: 12px;
-  animation: copy-arrive 700ms 100ms ease-out both;
 }
+
+.heroCopy > .eyebrow { animation: hero-item-arrive 520ms 100ms ease-out both; }
+.heroCopy > h1 { animation: hero-item-arrive 560ms 190ms ease-out both; }
+.heroCopy > .intro { animation: hero-item-arrive 560ms 290ms ease-out both; }
+.heroCopy > .heroActions { animation: hero-item-arrive 560ms 390ms ease-out both; }
 
 .eyebrow {
   margin: 0 0 14px;
@@ -210,7 +234,7 @@ h1 {
   overflow: visible;
   pointer-events: none;
   clip-path: inset(0 100% 0 0);
-  animation: underline-reveal 1.35s 180ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: underline-reveal 1.35s 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .underlineWavePath {
@@ -269,7 +293,6 @@ h1 {
   width: min(100%, 440px);
   aspect-ratio: 0.98;
   justify-self: center;
-  animation: art-arrive 850ms 150ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .portraitCard {
@@ -281,6 +304,7 @@ h1 {
   background: #fff;
   box-shadow: 0 13px 23px rgba(65, 54, 40, 0.17);
   transform: rotate(-3deg);
+  animation: polaroid-lift 820ms 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .portraitWindow {
@@ -318,6 +342,8 @@ h1 {
   background: repeating-linear-gradient(45deg, #f7a5bd 0 9px, #ffe483 9px 18px);
   opacity: 0.94;
   transform: rotate(2deg);
+  transform-origin: center;
+  animation: tape-stick 460ms 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .stickyNote {
@@ -371,19 +397,24 @@ h1 {
   50% { transform: translateY(-7px); }
 }
 
-@keyframes page-arrive {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes page-settle {
+  from { opacity: 0; transform: translateY(12px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes copy-arrive {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes hero-item-arrive {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
 }
 
-@keyframes art-arrive {
-  from { opacity: 0; transform: translateY(18px) rotate(2deg); }
-  to { opacity: 1; transform: translateY(0) rotate(0); }
+@keyframes polaroid-lift {
+  from { opacity: 0; transform: translateY(16px) rotate(-1deg) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) rotate(-3deg) scale(1); }
+}
+
+@keyframes tape-stick {
+  from { opacity: 0; transform: translateY(-6px) rotate(2deg) scaleX(0.76); }
+  to { opacity: 0.94; transform: translateY(0) rotate(2deg) scaleX(1); }
 }
 
 @keyframes slow-rotate {
@@ -416,7 +447,7 @@ h1 {
   }
 
   .binderRings {
-    top: 12px;
+    top: 8px;
     width: 58%;
   }
 
@@ -424,7 +455,13 @@ h1 {
 
   .header {
     min-height: 85px;
-    padding: 35px 22px 12px;
+    margin-bottom: 4px;
+    padding: 32px 22px 20px;
+  }
+
+  .header::before {
+    inset: 16px 12px 4px;
+    border-radius: 18px;
   }
 
   .wordmark { gap: 7px; font-size: 28px; }
@@ -518,8 +555,15 @@ h1 {
     transition-duration: 0.01ms !important;
   }
 
-  .planeBob animateTransform {
-    display: none;
+  .heroCopy > *,
+  .portraitCard,
+  .tape,
+  .underlineWave {
+    animation-delay: 0ms !important;
   }
 
+  .paperPlaneScene,
+  .underlineWavePath animate {
+    display: none;
+  }
 }

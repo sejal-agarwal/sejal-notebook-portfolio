@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   { label: "About", href: "#about", className: "navAbout" },
@@ -11,7 +11,11 @@ const links = [
   { label: "Blog", href: "#blog", className: "navBlog" },
 ];
 
-const underlinePath = "M 2 9 C 14 4 24 4 36 9 C 48 14 58 14 70 9 C 82 4 94 4 106 9 C 118 14 130 14 142 9 C 154 4 166 4 178 9 C 186 12 192 11 198 9";
+const underlinePaths = [
+  "M 2 9 C 14 4 24 4 36 9 C 48 14 58 14 70 9 C 82 4 94 4 106 9 C 118 14 130 14 142 9 C 154 4 166 4 178 9 C 186 12 192 11 198 9",
+  "M 2 9 C 14 1 24 1 36 9 C 48 17 58 17 70 9 C 82 1 94 1 106 9 C 118 17 130 17 142 9 C 154 1 166 1 178 9 C 186 15 192 13 198 9",
+  "M 2 9 C 14 7 24 7 36 9 C 48 11 58 11 70 9 C 82 7 94 7 106 9 C 118 11 130 11 142 9 C 154 7 166 7 178 9 C 186 9 192 9 198 9",
+];
 
 function Sparkle({ className }: { className: string }) {
   return (
@@ -30,6 +34,17 @@ function Sparkle({ className }: { className: string }) {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    function updateScrollState() {
+      setHasScrolled(window.scrollY > 24);
+    }
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrollState);
+  }, []);
 
   function closeMenu() {
     setMenuOpen(false);
@@ -43,7 +58,7 @@ export default function Home() {
         <span />
       </div>
 
-      <header className="header">
+      <header className={`header${hasScrolled ? " headerScrolled" : ""}`}>
         <a className="wordmark" href="#top" aria-label="Sejal Agarwal, home" onClick={closeMenu}>
           <Sparkle className="wordmarkSpark" />
           <span>Sejal Agarwal</span>
@@ -94,12 +109,22 @@ export default function Home() {
             <span className="underlinedPhrase">
               digital experiences.
               <svg className="underlineWave" viewBox="0 0 200 18" preserveAspectRatio="none" aria-hidden="true">
-                <path className="underlineWavePath" d={underlinePath} />
+                <path className="underlineWavePath" d={underlinePaths[0]}>
+                  <animate
+                    attributeName="d"
+                    dur="8s"
+                    repeatCount="indefinite"
+                    calcMode="spline"
+                    keyTimes="0;0.25;0.5;0.75;1"
+                    keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"
+                    values={[underlinePaths[0], underlinePaths[1], underlinePaths[2], underlinePaths[1], underlinePaths[0]].join(";")}
+                  />
+                </path>
               </svg>
             </span>
           </h1>
           <p className="intro">
-            Explore my software engineering experience, HCI research, and projects. On my blog, I share what I'm learning about designing better, more human-centered digital experiences.
+            Explore my software engineering experience, HCI research, and projects. On my blog, I share what I&apos;m learning about designing better, more human-centered digital experiences.
           </p>
           <div className="heroActions">
             <a className="button buttonPrimary" href="#work">
