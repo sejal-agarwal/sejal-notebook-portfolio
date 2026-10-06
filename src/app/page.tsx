@@ -35,10 +35,31 @@ function Sparkle({ className }: { className: string }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [aboutVisible, setAboutVisible] = useState(false);
+  const [aboutBodyVisible, setAboutBodyVisible] = useState(false);
+  const [aboutTagsVisible, setAboutTagsVisible] = useState(false);
+  const [aboutNoteVisible, setAboutNoteVisible] = useState(false);
 
   useEffect(() => {
+    const aboutSection = document.getElementById("about");
+    const revealedElements = new Set<Element>();
+
+    function revealWhenInView(element: Element | null, onReveal: () => void, threshold = 0.85) {
+      if (!element || revealedElements.has(element)) return;
+      const rect = element.getBoundingClientRect();
+      if (rect.top < window.innerHeight * threshold) {
+        revealedElements.add(element);
+        onReveal();
+      }
+    }
+
     function updateScrollState() {
       setHasScrolled(window.scrollY > 24);
+
+      revealWhenInView(aboutSection, () => setAboutVisible(true), 0.85);
+      revealWhenInView(document.querySelector(".aboutBody"), () => setAboutBodyVisible(true));
+      revealWhenInView(document.querySelector(".aboutTags"), () => setAboutTagsVisible(true), 0.93);
+      revealWhenInView(document.querySelector(".aboutNote"), () => setAboutNoteVisible(true));
     }
 
     updateScrollState();
@@ -193,7 +214,11 @@ export default function Home() {
         </p>
       </div>
 
-      <section className="aboutSection" id="about" aria-labelledby="about-title">
+      <section
+        className={`aboutSection${aboutVisible ? " aboutSectionVisible" : ""}`}
+        id="about"
+        aria-labelledby="about-title"
+      >
         <div className="aboutCopy">
           <p className="chapterLabel">
             <Sparkle className="chapterSpark" />
@@ -218,7 +243,7 @@ export default function Home() {
               </svg>
             </span>
           </h2>
-          <div className="aboutBody">
+          <div className={`aboutBody${aboutBodyVisible ? " aboutBodyVisible" : ""}`}>
             <p>
               I&apos;m a Computer Science Master&apos;s student at the University of Waterloo,
               where I conduct research at the intersection of Human-Computer Interaction, artificial intelligence, and education. Before that,
@@ -231,14 +256,20 @@ export default function Home() {
               along the way.</p>
 
           </div>
-          <div className="aboutTags" aria-label="A few things I work on">
-            <span className="aboutTag aboutTagBlue">Based in Waterloo, ON</span>
+          <div
+            className={`aboutTags${aboutTagsVisible ? " aboutTagsVisible" : ""}`}
+            aria-label="A few things I work on"
+          >
+            <span className="aboutTag aboutTagBlue">Waterloo, ON</span>
             <span className="aboutTag aboutTagGreen">2.5 years making things</span>
-            <span className="aboutTag aboutTagLilac">Human-centered design</span>
+            <span className="aboutTag aboutTagLilac">Human-AI Interaction</span>
           </div>
         </div>
 
-        <aside className="aboutNote" aria-labelledby="about-note-title">
+        <aside
+          className={`aboutNote${aboutNoteVisible ? " aboutNoteVisible" : ""}`}
+          aria-labelledby="about-note-title"
+        >
           <h3 id="about-note-title">currently learning about...</h3>
           <ul>
             <li>agentic coding workflows</li>

@@ -372,8 +372,15 @@ h1 {
   width: 23px;
   height: 23px;
   flex: 0 0 auto;
-  color: #ff766f;
+  color: #d9ecf6;
 }
+
+.aboutSectionVisible .chapterLabel,
+.aboutSectionVisible .aboutTitle {
+  animation: about-rise 560ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.aboutSectionVisible .aboutTitle { animation-delay: 80ms; }
 
 .aboutTitle {
   width: fit-content;
@@ -397,6 +404,19 @@ h1 {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.7;
+  transition: opacity 560ms ease, translate 560ms cubic-bezier(0.2, 0.8, 0.58, 1);
+}
+
+.aboutSectionVisible .aboutBody:not(.aboutBodyVisible),
+.aboutSectionVisible .aboutNote:not(.aboutNoteVisible) {
+  opacity: 0;
+  translate: 0 12px;
+}
+
+.aboutSectionVisible .aboutBody.aboutBodyVisible,
+.aboutSectionVisible .aboutNote.aboutNoteVisible {
+  opacity: 1;
+  translate: 0 0;
 }
 
 .aboutBody p { margin: 0 0 22px; }
@@ -409,6 +429,21 @@ h1 {
   margin-top: 28px;
 }
 
+.aboutSectionVisible .aboutTags .aboutTag {
+  opacity: 0;
+  translate: 0 10px;
+  scale: 0.94;
+}
+
+.aboutSectionVisible .aboutTags.aboutTagsVisible .aboutTag {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+
+.aboutTagsVisible .aboutTag:nth-child(2) { transition-delay: 110ms; }
+.aboutTagsVisible .aboutTag:nth-child(3) { transition-delay: 220ms; }
+
 .aboutTag {
   display: inline-flex;
   min-height: 38px;
@@ -419,6 +454,12 @@ h1 {
   font-size: 14px;
   font-weight: 700;
   line-height: 1.2;
+  transition: opacity 420ms ease, translate 420ms cubic-bezier(0.2, 0.8, 0.58, 1), scale 420ms cubic-bezier(0.2, 0.8, 0.58, 1), transform 160ms ease, box-shadow 160ms ease;
+}
+
+.aboutTag:hover {
+  transform: translate(-1px, -2px);
+  box-shadow: 3px 3px 0 var(--ink);
 }
 
 .aboutTagBlue { background: #d9ecf6; }
@@ -434,7 +475,10 @@ h1 {
   background: #ffe98c;
   box-shadow: 6px 7px 0 var(--ink);
   transform: rotate(1.5deg);
+  transition: opacity 560ms ease, translate 560ms cubic-bezier(0.2, 0.8, 0.58, 1), box-shadow 180ms ease;
 }
+
+.aboutNote:hover { box-shadow: 8px 10px 0 var(--ink); }
 
 .aboutNote h3 {
   margin: 0 0 18px;
@@ -611,6 +655,11 @@ h1 {
 @keyframes tape-stick {
   from { opacity: 0; transform: translateY(-6px) rotate(2deg) scaleX(0.76); }
   to { opacity: 0.94; transform: translateY(0) rotate(2deg) scaleX(1); }
+}
+
+@keyframes about-rise {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: 0 0; }
 }
 
 @keyframes slow-rotate {
