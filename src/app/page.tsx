@@ -261,7 +261,7 @@ export default function Home() {
             aria-label="A few things I work on"
           >
             <span className="aboutTag aboutTagBlue">Waterloo, ON</span>
-            <span className="aboutTag aboutTagGreen">2.5 years making things</span>
+            <span className="aboutTag aboutTagGreen">2+ years industry experience</span>
             <span className="aboutTag aboutTagLilac">Human-AI Interaction</span>
           </div>
         </div>
@@ -270,15 +270,28 @@ export default function Home() {
           className={`aboutNote${aboutNoteVisible ? " aboutNoteVisible" : ""}`}
           aria-labelledby="about-note-title"
         >
-          <h3 id="about-note-title">currently learning about...</h3>
-          <ul>
-            <li>agentic coding workflows</li>
-            <li>human-centered design</li>
-            <li>UI/UX best practices</li>
-          </ul>
-          <svg className="noteUnderline" viewBox="0 0 140 18" aria-hidden="true">
-            <path d="M3 10 C18 3 27 16 44 9 S72 5 87 10 S114 14 137 7" />
-          </svg>
+          <div className="aboutNoteLayout">
+            <div className="aboutNoteCopy">
+              <h3 id="about-note-title">currently learning about...</h3>
+              <ul>
+                <li>agentic coding workflows</li>
+                <li>human-centered design</li>
+                <li>UI/UX best practices</li>
+              </ul>
+              <svg className="noteUnderline" viewBox="0 0 140 18" aria-hidden="true">
+                <path d="M3 10 C18 3 27 16 44 9 S72 5 87 10 S114 14 137 7" />
+              </svg>
+            </div>
+            <Image
+              className="aboutSticker"
+              src="/about-flower-sticker.png"
+              alt=""
+              aria-hidden="true"
+              width={256}
+              height={256}
+              sizes="(max-width: 600px) 76px, 100px"
+            />
+          </div>
         </aside>
       </section>
     </main>
