@@ -17,6 +17,76 @@ const underlinePaths = [
   "M 2 9 C 14 7 24 7 36 9 C 48 11 58 11 70 9 C 82 7 94 7 106 9 C 118 11 130 11 142 9 C 154 7 166 7 178 9 C 186 9 192 9 198 9",
 ];
 
+const experiences = [
+  {
+    company: "Autodesk",
+    role: "Research Intern, Agentic Canvas Interactions",
+    dates: "Sep – Dec 2026 · Toronto, ON",
+    color: "pink",
+    details: [
+      "Design and engineer responsive, interactive canvas prototypes exploring direct-manipulation interfaces for real-time agentic workflows.",
+      "Partner across research, design, and engineering teams to translate interaction concepts into scalable UI patterns for AI-assisted workflows.",
+      "Conduct literature reviews on agentic workflows and direct-manipulation spatial interfaces to inform interaction design and prototype development.",
+    ],
+    skills: ["Next.js", "Three.js", "HCI Research", "Agentic Workflows"],
+  },
+  {
+    company: "Outschool",
+    role: "Software Engineer Intern",
+    dates: "Jan – Apr, Sep – Dec 2024 · San Francisco, CA",
+    color: "blue",
+    details: [
+      "Increased new-buyer engagement/sign-ups by 25% by designing and implementing A/B-tested UI/UX experiments across key customer workflows.",
+      "Built and iterated on production web features, using experimentation telemetry and user behavior to evaluate performance and guide UI improvements.",
+      "Collaborated with product/data teams to translate user and business needs into customer-facing experiences and data-driven product recommendations.",
+    ],
+    skills: ["React", "TypeScript", "A/B testing"],
+  },
+  {
+    company: "Open Ocean Robotics",
+    role: "Software Engineer Co-op",
+    dates: "May – Aug 2023 · Victoria, BC",
+    color: "green",
+    details: [
+      "Improved maintainability across a large-scale web codebase by migrating 40% of the repository (~60,000 lines of code) from JavaScript to TypeScript.",
+      "Built a responsive web image carousel for live Unmanned Surface Vehicle feeds to optimize image delivery and reduce live-streaming costs by 20%.",
+    ],
+    skills: ["React", "TypeScript", "Responsive web apps"],
+  },
+  {
+    company: "Respondent",
+    role: "Software Engineer Intern",
+    dates: "Sep – Dec 2022 · New York, NY",
+    color: "pink",
+    details: [
+      "Refactored ~20% of an Angular web application, removing legacy front-end code and shipping 5 new user-facing features to improve platform maintainability and stability.",
+      "Expanded Jest unit test coverage across new and existing functionality, improving frontend reliability and reducing code issues before review.",
+    ],
+    skills: ["Angular", "Jest", "Frontend"],
+  },
+  {
+    company: "19Labs",
+    role: "Full-Stack Developer Co-op",
+    dates: "Jan – Apr 2022 · San Mateo, CA",
+    color: "blue",
+    details: [
+      "Drove a platform-wide user migration for the GALE telehealth platform, consolidating 7 permission roles into 4, remapping users, and redesigning role-based UI and permissions for each user type.",
+      "Integrated Bluetooth connectivity to stream real-time health metrics from medical devices, enabling practitioners to review live patient data.",
+    ],
+    skills: ["Full-stack", "Databases", "UX", "Kotlin"],
+  },
+  {
+    company: "Highway Three Soltuions",
+    role: "Junior Technical Analyst",
+    dates: "May – Aug 2021 · Victoria, BC",
+    color: "green",
+    details: [
+      "Researched and tested Atlassian Server-to-Cloud migration journeys and translated findings into technical blog posts.", "partnered across engineering, consulting, and marketing."
+    ],
+    skills: ["Full-stack", "Databases", "UX", "Kotlin"],
+  },
+];
+
 function Sparkle({ className }: { className: string }) {
   return (
     <svg className={className} viewBox="0 0 36 36" aria-hidden="true">
@@ -39,6 +109,8 @@ export default function Home() {
   const [aboutBodyVisible, setAboutBodyVisible] = useState(false);
   const [aboutTagsVisible, setAboutTagsVisible] = useState(false);
   const [aboutNoteVisible, setAboutNoteVisible] = useState(false);
+  const [revealedExperiences, setRevealedExperiences] = useState<number[]>([]);
+  const [activeExperiences, setActiveExperiences] = useState<number[]>([]);
 
   useEffect(() => {
     const aboutSection = document.getElementById("about");
@@ -60,11 +132,63 @@ export default function Home() {
       revealWhenInView(document.querySelector(".aboutBody"), () => setAboutBodyVisible(true));
       revealWhenInView(document.querySelector(".aboutTags"), () => setAboutTagsVisible(true), 0.93);
       revealWhenInView(document.querySelector(".aboutNote"), () => setAboutNoteVisible(true));
+      const timeline = document.querySelector<HTMLOListElement>(".experienceTimeline");
+      const activeExperienceIndexes: number[] = [];
+      const newlyRevealedIndexes: number[] = [];
+      const experienceItems = [...document.querySelectorAll(".experienceItem")];
+      const activationLine = window.innerHeight * 0.85;
+      const cardCenters = experienceItems.map((element) => {
+        const card = element.querySelector(".experienceCard");
+        if (!card) return Number.POSITIVE_INFINITY;
+        const rect = card.getBoundingClientRect();
+        return rect.top + rect.height / 2;
+      });
+      experienceItems.forEach((element, index) => {
+        const card = element.querySelector(".experienceCard");
+        if (!card) return;
+        if (cardCenters[index] >= activationLine) return;
+        activeExperienceIndexes.push(index);
+        if (revealedElements.has(element)) return;
+        revealedElements.add(element);
+        newlyRevealedIndexes.push(index);
+      });
+      if (timeline && cardCenters.length > 0) {
+        const timelineRect = timeline.getBoundingClientRect();
+        const firstCard = experienceItems[0].querySelector(".experienceCard");
+        const lastCard = experienceItems[experienceItems.length - 1].querySelector(".experienceCard");
+        if (firstCard && lastCard) {
+          const firstRect = firstCard.getBoundingClientRect();
+          const lastRect = lastCard.getBoundingClientRect();
+          const firstCenter = firstRect.top + firstRect.height / 2 - timelineRect.top;
+          const lastCenter = lastRect.top + lastRect.height / 2 - timelineRect.top;
+          const lineLength = Math.max(lastCenter - firstCenter, 0);
+          const progress = lineLength === 0
+            ? 0
+            : Math.max(0, Math.min(1, (activationLine - cardCenters[0]) / lineLength));
+          timeline.style.setProperty("--timeline-start", `${firstCenter}px`);
+          timeline.style.setProperty("--timeline-length", `${lineLength}px`);
+          timeline.style.setProperty("--timeline-progress", `${progress}`);
+        }
+      }
+      setRevealedExperiences((revealed) => {
+        const newlyVisible = newlyRevealedIndexes.filter((index) => !revealed.includes(index));
+        return newlyVisible.length ? [...revealed, ...newlyVisible] : revealed;
+      });
+      setActiveExperiences((active) => (
+        active.length === activeExperienceIndexes.length &&
+        active.every((index, position) => index === activeExperienceIndexes[position])
+          ? active
+          : activeExperienceIndexes
+      ));
     }
 
     updateScrollState();
     window.addEventListener("scroll", updateScrollState, { passive: true });
-    return () => window.removeEventListener("scroll", updateScrollState);
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
   }, []);
 
   function closeMenu() {
@@ -293,6 +417,60 @@ export default function Home() {
             />
           </div>
         </aside>
+      </section>
+
+      <section className="experienceSection" id="work" aria-labelledby="experience-title">
+        <p className="chapterLabel">
+          <Sparkle className="chapterSpark" />
+          <span>chapter two</span>
+        </p>
+        <h2 className="experienceTitle" id="experience-title">
+          Work{" "}
+          <span className="underlinedPhrase">
+            experience
+            <svg className="underlineWave" viewBox="0 0 200 18" preserveAspectRatio="none" aria-hidden="true">
+              <path className="underlineWavePath" d={underlinePaths[0]}>
+                <animate
+                  attributeName="d"
+                  dur="8s"
+                  repeatCount="indefinite"
+                  calcMode="spline"
+                  keyTimes="0;0.25;0.5;0.75;1"
+                  keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"
+                  values={[underlinePaths[0], underlinePaths[1], underlinePaths[2], underlinePaths[1], underlinePaths[0]].join(";")}
+                />
+              </path>
+            </svg>
+          </span>
+        </h2>
+        <ol className={`experienceTimeline${revealedExperiences.length > 0 ? " experienceTimelineVisible" : ""}`}>
+          {experiences.map((experience, index) => (
+            <li
+              className={`experienceItem${revealedExperiences.includes(index) ? " experienceItemVisible" : ""}`}
+              key={experience.company}
+            >
+              <span
+                className={`experienceMarker experienceMarker${experience.color}${activeExperiences.includes(index) ? " experienceMarkerActive" : ""}`}
+                aria-hidden="true"
+              />
+              <article className={`experienceCard experienceCard${experience.color}`}>
+                <time className="experienceDates">{experience.dates}</time>
+                <h3>{experience.company}</h3>
+                <p className="experienceRole">{experience.role}</p>
+                <ul className="experienceDetails">
+                  {experience.details.map((detail) => <li key={detail}>{detail}</li>)}
+                </ul>
+                <ul className="experienceSkills" aria-label="Skills">
+                  {experience.skills.map((skill, skillIndex) => (
+                    <li className={`experienceSkill experienceSkill${skillIndex % 3}`} key={skill}>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </li>
+          ))}
+        </ol>
       </section>
     </main>
   );
