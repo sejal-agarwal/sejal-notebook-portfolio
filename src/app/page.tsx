@@ -76,7 +76,7 @@ const experiences = [
     skills: ["Full-stack", "Databases", "UX", "Kotlin"],
   },
   {
-    company: "Highway Three Soltuions",
+    company: "Highway Three Solutions",
     role: "Junior Technical Analyst",
     dates: "May – Aug 2021 · Victoria, BC",
     color: "green",

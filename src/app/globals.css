@@ -348,7 +348,7 @@ h1 {
   align-items: center;
   gap: clamp(42px, 7vw, 100px);
   margin: 0 auto;
-  padding: 104px 0 126px;
+  padding: 44px 0 126px;
   scroll-margin-top: 110px;
 }
 
@@ -374,6 +374,9 @@ h1 {
   flex: 0 0 auto;
   color: #d9ecf6;
 }
+
+.aboutSection .chapterLabel,
+.aboutSection .aboutTitle { opacity: 0; }
 
 .aboutSectionVisible .chapterLabel,
 .aboutSectionVisible .aboutTitle {
@@ -407,14 +410,14 @@ h1 {
   transition: opacity 560ms ease, translate 560ms cubic-bezier(0.2, 0.8, 0.58, 1);
 }
 
-.aboutSectionVisible .aboutBody:not(.aboutBodyVisible),
-.aboutSectionVisible .aboutNote:not(.aboutNoteVisible) {
+.aboutBody:not(.aboutBodyVisible),
+.aboutNote:not(.aboutNoteVisible) {
   opacity: 0;
   translate: 0 12px;
 }
 
-.aboutSectionVisible .aboutBody.aboutBodyVisible,
-.aboutSectionVisible .aboutNote.aboutNoteVisible {
+.aboutBody.aboutBodyVisible,
+.aboutNote.aboutNoteVisible {
   opacity: 1;
   translate: 0 0;
 }
@@ -429,13 +432,13 @@ h1 {
   margin-top: 28px;
 }
 
-.aboutSectionVisible .aboutTags .aboutTag {
+.aboutTags .aboutTag {
   opacity: 0;
   translate: 0 10px;
   scale: 0.94;
 }
 
-.aboutSectionVisible .aboutTags.aboutTagsVisible .aboutTag {
+.aboutTags.aboutTagsVisible .aboutTag {
   opacity: 1;
   translate: 0 0;
   scale: 1;
@@ -488,7 +491,7 @@ h1 {
   width: min(100% - 2 * clamp(28px, 8.2vw, 116px), 1200px);
   margin: 0 auto;
   padding: 0 0 118px;
-  scroll-margin-top: 110px;
+  scroll-margin-top: 154px;
 }
 
 .experienceSection .chapterLabel { margin-bottom: 0; }
@@ -995,12 +998,13 @@ h1 {
     width: calc(100% - 48px);
     grid-template-columns: minmax(0, 1fr);
     gap: 48px;
-    padding: 70px 0 92px;
+    padding: 30px 0 92px;
   }
 
   .experienceSection {
     width: calc(100% - 48px);
     padding-bottom: 82px;
+    scroll-margin-top: 140px;
   }
 
   .aboutTitle { font-size: clamp(40px, 10vw, 58px); }
