@@ -88,7 +88,7 @@ a:focus-visible {
 .header {
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 4;
   isolation: isolate;
   display: flex;
   align-items: center;
@@ -295,6 +295,202 @@ h1 {
   justify-self: center;
 }
 
+.phraseStrip {
+  width: 100%;
+  overflow: hidden;
+  border-top: 2px dashed rgba(98, 93, 104, 0.42);
+  border-bottom: 2px dashed rgba(98, 93, 104, 0.42);
+  background: #fbe2e9;
+}
+
+.phraseTrack {
+  display: flex;
+  width: max-content;
+  animation: phrase-roll 38s linear infinite;
+}
+
+.phraseSet {
+  display: flex;
+  min-height: 70px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(28px, 4vw, 58px);
+  padding: 0 clamp(28px, 4vw, 58px);
+  color: #514a4c;
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: clamp(20px, 2vw, 28px);
+  font-style: italic;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.phraseSpark {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  color: var(--yellow);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.aboutSection {
+  display: grid;
+  width: min(100% - 2 * clamp(28px, 8.2vw, 116px), 1200px);
+  grid-template-columns: minmax(0, 1.2fr) minmax(310px, 0.8fr);
+  align-items: center;
+  gap: clamp(42px, 7vw, 100px);
+  margin: 0 auto;
+  padding: 104px 0 126px;
+  scroll-margin-top: 110px;
+}
+
+.aboutCopy { min-width: 0; }
+
+.chapterLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 4px;
+  color: #625c69;
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+  transform: rotate(-1deg);
+  transform-origin: left center;
+}
+
+.chapterSpark {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 auto;
+  color: #ff766f;
+}
+
+.aboutTitle {
+  width: fit-content;
+  margin: 0;
+  font-size: clamp(42px, 4.2vw, 62px);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.aboutTitle .underlinedPhrase { padding-bottom: 0.22em; }
+
+.aboutTitle .underlineWave {
+  bottom: -0.12em;
+  height: 0.2em;
+}
+
+.aboutBody {
+  max-width: 720px;
+  margin-top: 30px;
+  color: var(--muted-ink);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.aboutBody p { margin: 0 0 22px; }
+.aboutBody p:last-child { margin-bottom: 0; }
+
+.aboutTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.aboutTag {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  padding: 5px 13px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.aboutTagBlue { background: #d9ecf6; }
+.aboutTagGreen { background: #cfead6; }
+.aboutTagLilac { background: #eee4fb; }
+
+.aboutNote {
+  position: relative;
+  width: 100%;
+  padding: 36px 34px 32px;
+  border: 2px solid var(--ink);
+  border-radius: 9px;
+  background: #ffe98c;
+  box-shadow: 6px 7px 0 var(--ink);
+  transform: rotate(1.5deg);
+}
+
+.aboutNote h3 {
+  margin: 0 0 18px;
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.aboutNote ul {
+  display: grid;
+  gap: 13px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #514a4c;
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.aboutNote li {
+  position: relative;
+  padding-left: 24px;
+}
+
+.aboutNote li::before {
+  position: absolute;
+  top: 0.43em;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--pink);
+  content: "";
+}
+
+.aboutNote li:nth-child(2)::before { background: #a8c9ef; }
+.aboutNote li:nth-child(3)::before { background: #a8d3ac; }
+
+.noteUnderline {
+  display: block;
+  width: 120px;
+  height: 18px;
+  margin-top: 22px;
+  overflow: visible;
+}
+
+.noteUnderline path {
+  fill: none;
+  stroke: rgba(97, 88, 57, 0.56);
+  stroke-linecap: round;
+  stroke-width: 4px;
+}
+
 .portraitCard {
   position: absolute;
   top: 10%;
@@ -421,6 +617,10 @@ h1 {
   to { transform: rotate(360deg); }
 }
 
+@keyframes phrase-roll {
+  to { transform: translateX(-50%); }
+}
+
 @keyframes underline-reveal {
   to { clip-path: inset(0 0 0 0); }
 }
@@ -537,12 +737,33 @@ h1 {
   .button { min-height: 50px; padding-inline: 17px; font-size: 15px; }
   .heroArt { width: min(100%, 380px); }
   .stickyNote { padding: 10px 12px; font-size: 17px; }
+
+  .phraseSet {
+    min-height: 60px;
+    gap: 26px;
+    padding-inline: 28px;
+    font-size: clamp(19px, 5vw, 24px);
+  }
+
+  .aboutSection {
+    width: calc(100% - 48px);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+    padding: 70px 0 92px;
+  }
+
+  .aboutTitle { font-size: clamp(40px, 10vw, 58px); }
+  .aboutBody { margin-top: 23px; font-size: 16px; line-height: 1.65; }
+  .aboutNote { width: min(100%, 500px); justify-self: center; padding: 30px 26px; }
 }
 
 @media (max-width: 380px) {
   .hero { width: calc(100% - 38px); }
   .heroActions { gap: 12px; }
   .button { padding-inline: 13px; font-size: 14px; }
+  .aboutSection { width: calc(100% - 38px); }
+  .aboutTags { gap: 8px; }
+  .aboutTag { padding-inline: 10px; font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -561,6 +782,16 @@ h1 {
   .underlineWave {
     animation-delay: 0ms !important;
   }
+
+  .phraseTrack {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: none;
+  }
+
+  .phraseSet { white-space: normal; }
+  .phraseSet + .phraseSet { display: none; }
 
   .paperPlaneScene,
   .underlineWavePath animate {

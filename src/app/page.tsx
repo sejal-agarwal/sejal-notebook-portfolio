@@ -124,7 +124,7 @@ export default function Home() {
             </span>
           </h1>
           <p className="intro">
-            Welcome to my little corner of the internet! Here you'll find a collection of my software engineering work, HCI research, and various things I've been tinkering away at. I also write about what I'm learning, exploring, and thinking about when building human-centered technology.
+            Welcome to my little corner of the internet! Here you&apos;ll find a collection of my software engineering work, HCI research, and various things I&apos;ve been tinkering away at. I also write about what I&apos;m learning, exploring, and thinking about when building human-centered technology.
           </p>
           <div className="heroActions">
             <a className="button buttonPrimary" href="#work">
@@ -171,6 +171,84 @@ export default function Home() {
             agentic canvas experiences @ Autodesk
           </aside>
         </div>
+      </section>
+
+      <div className="phraseStrip" aria-label="Notebook notes">
+        <div className="phraseTrack" aria-hidden="true">
+          {[0, 1].map((copy) => (
+            <span className="phraseSet" key={copy}>
+              <span>building things, asking questions</span>
+              <Sparkle className="phraseSpark" />
+              <span>always making, always learning</span>
+              <Sparkle className="phraseSpark" />
+              <span>designing for humans</span>
+              <Sparkle className="phraseSpark" />
+              <span>make it, break it, learn from it</span>
+              <Sparkle className="phraseSpark" />
+            </span>
+          ))}
+        </div>
+        <p className="visuallyHidden">
+          Building things, asking questions. Always making, always learning. Designing for humans. Make it, break it, learn from it.
+        </p>
+      </div>
+
+      <section className="aboutSection" id="about" aria-labelledby="about-title">
+        <div className="aboutCopy">
+          <p className="chapterLabel">
+            <Sparkle className="chapterSpark" />
+            <span>chapter one</span>
+          </p>
+          <h2 className="aboutTitle" id="about-title">
+            About{" "}
+            <span className="underlinedPhrase">
+              me
+              <svg className="underlineWave" viewBox="0 0 200 18" preserveAspectRatio="none" aria-hidden="true">
+                <path className="underlineWavePath" d={underlinePaths[0]}>
+                  <animate
+                    attributeName="d"
+                    dur="8s"
+                    repeatCount="indefinite"
+                    calcMode="spline"
+                    keyTimes="0;0.25;0.5;0.75;1"
+                    keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"
+                    values={[underlinePaths[0], underlinePaths[1], underlinePaths[2], underlinePaths[1], underlinePaths[0]].join(";")}
+                  />
+                </path>
+              </svg>
+            </span>
+          </h2>
+          <div className="aboutBody">
+            <p>
+              I&apos;m a Computer Science Master&apos;s student at the University of Waterloo,
+              where I conduct research at the intersection of Human-Computer Interaction, artificial intelligence, and education. Before that,
+              I studied Software Engineering at the University of Victoria. Through my studies and
+              internships, I&apos;ve become passionate about creating pixel-perfect designs that feel
+              intuitive, thoughtful, and fun to use.
+            </p>
+            <p>I like moving between design, code, and the
+              questions that make a project worth building. This notebook is where I collect the work, HCI research, and little experiments I make
+              along the way.</p>
+
+          </div>
+          <div className="aboutTags" aria-label="A few things I work on">
+            <span className="aboutTag aboutTagBlue">Based in Waterloo, ON</span>
+            <span className="aboutTag aboutTagGreen">2.5 years making things</span>
+            <span className="aboutTag aboutTagLilac">Human-centered design</span>
+          </div>
+        </div>
+
+        <aside className="aboutNote" aria-labelledby="about-note-title">
+          <h3 id="about-note-title">currently learning about...</h3>
+          <ul>
+            <li>agentic coding workflows</li>
+            <li>human-centered design</li>
+            <li>UI/UX best practices</li>
+          </ul>
+          <svg className="noteUnderline" viewBox="0 0 140 18" aria-hidden="true">
+            <path d="M3 10 C18 3 27 16 44 9 S72 5 87 10 S114 14 137 7" />
+          </svg>
+        </aside>
       </section>
     </main>
   );
