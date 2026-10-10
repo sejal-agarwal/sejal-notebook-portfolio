@@ -87,6 +87,44 @@ const experiences = [
   },
 ];
 
+const studies = [
+  {
+    tab: "Thinking Inside the Box",
+    name: "Thinking Inside the Box: Building UIs with Question-Guided Inputs",
+    venue: "Graphics Interface 2026 · first-author paper",
+    stamp: "Published!",
+    pdf: "/thinking-inside-the-box.pdf",
+    question:
+      "Can answering guided questions, instead of facing a blank chat box, help people write better first prompts when building UIs with GenAI?",
+    method:
+      "We compared a question-guided chatbot, and compared it with free-form prompting in a within-subjects study: 12 participants, two UI-building tasks each.",
+    finding:
+      "Question-guided chatbot led to significantly fewer revisions and more deliberate planning, at the cost of increased time. 8 of 12 participants preferred it.",
+  },
+  {
+    tab: "Scroll or Stroll",
+    name: "Scroll or Stroll: Scrollytelling vs. Free Exploration",
+    pdf: "/scroll-or-stroll.pdf",
+    question:
+      "Do scrollytelling and free exploration change how well readers understand data stories, and how quickly they find answers?",
+    method:
+      "A 2×2 within-subjects experiment with 8 participants and two matched Pew Research articles, measuring comprehension, usability (SUS) and workload (NASA-TLX).",
+    finding:
+      "Accuracy was the same either way, and preferences split evenly: scrollytelling for learning and context, free exploration for control and quick lookup.",
+  },
+  {
+    tab: "Prefill-Only Optimizations",
+    name: "Prefill-Only Optimizations for Disaggregated vLLM",
+    pdf: "/prefill-only-optimizations.pdf",
+    question:
+      "Can PrefillOnly-style tricks, hybrid prefilling and JCT-aware scheduling, speed up prefill–decode disaggregation in vLLM?",
+    method:
+      "We used vLLM's prefill path and benchmarked them against the standard disaggregated baseline.",
+    finding:
+      "They lost to the baseline at every load, with 0.34–0.75× the throughput. They clash with vLLM's memory, scheduling and compilation assumptions.",
+  },
+];
+
 function Sparkle({ className }: { className: string }) {
   return (
     <svg className={className} viewBox="0 0 36 36" aria-hidden="true">
@@ -104,6 +142,7 @@ function Sparkle({ className }: { className: string }) {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeStudy, setActiveStudy] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [aboutVisible, setAboutVisible] = useState(false);
   const [aboutBodyVisible, setAboutBodyVisible] = useState(false);
@@ -471,6 +510,90 @@ export default function Home() {
             </li>
           ))}
         </ol>
+      </section>
+      <section className="researchSection" id="research" aria-labelledby="research-title">
+        <p className="chapterLabel">
+          <Sparkle className="chapterSpark" />
+          <span>chapter three</span>
+        </p>
+        <h2 className="researchTitle" id="research-title">
+          Research{" "}
+          <span className="underlinedPhrase">
+            notes
+            <svg className="underlineWave" viewBox="0 0 200 18" preserveAspectRatio="none" aria-hidden="true">
+              <path className="underlineWavePath" d={underlinePaths[0]}>
+                <animate
+                  attributeName="d"
+                  dur="8s"
+                  repeatCount="indefinite"
+                  calcMode="spline"
+                  keyTimes="0;0.25;0.5;0.75;1"
+                  keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"
+                  values={[underlinePaths[0], underlinePaths[1], underlinePaths[2], underlinePaths[1], underlinePaths[0]].join(";")}
+                />
+              </path>
+            </svg>
+          </span>
+        </h2>
+        <div className="studyFolder">
+          <div className="studyTabs" role="tablist" aria-label="Research studies">
+            {studies.map((study, index) => (
+              <button
+                aria-controls="study-panel"
+                aria-selected={activeStudy === index}
+                className={`studyTab${activeStudy === index ? " studyTabActive" : ""}`}
+                id={`study-tab-${index}`}
+                key={index}
+                onClick={() => setActiveStudy(index)}
+                role="tab"
+                type="button"
+              >
+                {study.tab}
+              </button>
+            ))}
+          </div>
+          <div className="studyDrawer">
+            <article
+              aria-labelledby={`study-tab-${activeStudy}`}
+              className="studySheet"
+              id="study-panel"
+              key={activeStudy}
+              role="tabpanel"
+            >
+              <svg className="studyClip" viewBox="0 0 24 60" aria-hidden="true">
+                <path
+                  d="M17 20 V46 a6 6 0 0 1 -12 0 V12 a8 8 0 0 1 16 0 V44"
+                  fill="none"
+                  stroke="var(--ink)"
+                  strokeLinecap="round"
+                  strokeWidth="3"
+                />
+              </svg>
+              <h3>{studies[activeStudy].name}</h3>
+              {studies[activeStudy].venue && <p className="studyVenue">{studies[activeStudy].venue}</p>}
+              <dl className="studyNotes">
+                <div>
+                  <dt>The question</dt>
+                  <dd>{studies[activeStudy].question}</dd>
+                </div>
+                <div>
+                  <dt>The study</dt>
+                  <dd>{studies[activeStudy].method}</dd>
+                </div>
+                <div>
+                  <dt>The finding</dt>
+                  <dd>{studies[activeStudy].finding}</dd>
+                </div>
+              </dl>
+              <div className="studyFooter">
+                <a className="studyLink" href={studies[activeStudy].pdf} rel="noreferrer" target="_blank">
+                  Read the paper <span aria-hidden="true">→</span>
+                </a>
+                {studies[activeStudy].stamp && <span className="studyStamp">{studies[activeStudy].stamp}</span>}
+              </div>
+            </article>
+          </div>
+        </div>
       </section>
     </main>
   );
