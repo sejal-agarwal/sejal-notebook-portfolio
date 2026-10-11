@@ -23,11 +23,8 @@ const experiences = [
     role: "Research Intern, Agentic Canvas Interactions",
     dates: "Sep – Dec 2026 · Toronto, ON",
     color: "pink",
-    details: [
-      "Design and engineer responsive, interactive canvas prototypes exploring direct-manipulation interfaces for real-time agentic workflows.",
-      "Partner across research, design, and engineering teams to translate interaction concepts into scalable UI patterns for AI-assisted workflows.",
-      "Conduct literature reviews on agentic workflows and direct-manipulation spatial interfaces to inform interaction design and prototype development.",
-    ],
+    summary:
+      "Designing and building interactive canvas prototypes that explore direct-manipulation interfaces for real-time agentic workflows, in close collaboration with research, design, and engineering.",
     skills: ["Next.js", "Three.js", "HCI Research", "Agentic Workflows"],
   },
   {
@@ -35,11 +32,8 @@ const experiences = [
     role: "Software Engineer Intern",
     dates: "Jan – Apr, Sep – Dec 2024 · San Francisco, CA",
     color: "blue",
-    details: [
-      "Increased new-buyer engagement/sign-ups by 25% by designing and implementing A/B-tested UI/UX experiments across key customer workflows.",
-      "Built and iterated on production web features, using experimentation telemetry and user behavior to evaluate performance and guide UI improvements.",
-      "Collaborated with product/data teams to translate user and business needs into customer-facing experiences and data-driven product recommendations.",
-    ],
+    summary:
+      "Shipped A/B-tested UI/UX experiments across key customer workflows that increased new-buyer sign-ups by 25%, guided by experimentation telemetry and close work with product and data teams.",
     skills: ["React", "TypeScript", "A/B testing"],
   },
   {
@@ -47,10 +41,8 @@ const experiences = [
     role: "Software Engineer Co-op",
     dates: "May – Aug 2023 · Victoria, BC",
     color: "green",
-    details: [
-      "Improved maintainability across a large-scale web codebase by migrating 40% of the repository (~60,000 lines of code) from JavaScript to TypeScript.",
-      "Built a responsive web image carousel for live Unmanned Surface Vehicle feeds to optimize image delivery and reduce live-streaming costs by 20%.",
-    ],
+    summary:
+      "Migrated 40% of a large web codebase (about 60,000 lines) from JavaScript to TypeScript and built a live-feed image carousel that cut streaming costs by 20%.",
     skills: ["React", "TypeScript", "Responsive web apps"],
   },
   {
@@ -58,10 +50,8 @@ const experiences = [
     role: "Software Engineer Intern",
     dates: "Sep – Dec 2022 · New York, NY",
     color: "pink",
-    details: [
-      "Refactored ~20% of an Angular web application, removing legacy front-end code and shipping 5 new user-facing features to improve platform maintainability and stability.",
-      "Expanded Jest unit test coverage across new and existing functionality, improving frontend reliability and reducing code issues before review.",
-    ],
+    summary:
+      "Refactored about 20% of an Angular application, shipping 5 new user-facing features and expanding Jest test coverage to make the platform more stable and maintainable.",
     skills: ["Angular", "Jest", "Frontend"],
   },
   {
@@ -69,10 +59,8 @@ const experiences = [
     role: "Full-Stack Developer Co-op",
     dates: "Jan – Apr 2022 · San Mateo, CA",
     color: "blue",
-    details: [
-      "Drove a platform-wide user migration for the GALE telehealth platform, consolidating 7 permission roles into 4, remapping users, and redesigning role-based UI and permissions for each user type.",
-      "Integrated Bluetooth connectivity to stream real-time health metrics from medical devices, enabling practitioners to review live patient data.",
-    ],
+    summary:
+      "Led a platform-wide user migration for the GALE telehealth platform, consolidating 7 permission roles into 4, and integrated Bluetooth medical devices to stream live patient health metrics.",
     skills: ["Full-stack", "Databases", "UX", "Kotlin"],
   },
   {
@@ -80,10 +68,9 @@ const experiences = [
     role: "Junior Technical Analyst",
     dates: "May – Aug 2021 · Victoria, BC",
     color: "green",
-    details: [
-      "Researched and tested Atlassian Server-to-Cloud migration journeys and translated findings into technical blog posts.", "partnered across engineering, consulting, and marketing."
-    ],
-    skills: ["Full-stack", "Databases", "UX", "Kotlin"],
+    summary:
+      "Researched and tested Atlassian Server-to-Cloud migration journeys, partnering across engineering, consulting, and marketing to turn the findings into technical blog posts.",
+    skills: ["Atlassian apps", "Cloud Migration", "Technical Writing"],
   },
 ];
 
@@ -146,7 +133,6 @@ export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [aboutVisible, setAboutVisible] = useState(false);
   const [aboutBodyVisible, setAboutBodyVisible] = useState(false);
-  const [aboutTagsVisible, setAboutTagsVisible] = useState(false);
   const [aboutNoteVisible, setAboutNoteVisible] = useState(false);
   const [revealedExperiences, setRevealedExperiences] = useState<number[]>([]);
   const [activeExperiences, setActiveExperiences] = useState<number[]>([]);
@@ -169,7 +155,6 @@ export default function Home() {
 
       revealWhenInView(aboutSection, () => setAboutVisible(true), 0.85);
       revealWhenInView(document.querySelector(".aboutBody"), () => setAboutBodyVisible(true));
-      revealWhenInView(document.querySelector(".aboutTags"), () => setAboutTagsVisible(true), 0.93);
       revealWhenInView(document.querySelector(".aboutNote"), () => setAboutNoteVisible(true));
       const timeline = document.querySelector<HTMLOListElement>(".experienceTimeline");
       const activeExperienceIndexes: number[] = [];
@@ -419,14 +404,6 @@ export default function Home() {
               along the way.</p>
 
           </div>
-          <div
-            className={`aboutTags${aboutTagsVisible ? " aboutTagsVisible" : ""}`}
-            aria-label="A few things I work on"
-          >
-            <span className="aboutTag aboutTagBlue">Waterloo, ON</span>
-            <span className="aboutTag aboutTagGreen">2+ years industry experience</span>
-            <span className="aboutTag aboutTagLilac">Human-AI Interaction</span>
-          </div>
         </div>
 
         <aside
@@ -496,9 +473,7 @@ export default function Home() {
                 <time className="experienceDates">{experience.dates}</time>
                 <h3>{experience.company}</h3>
                 <p className="experienceRole">{experience.role}</p>
-                <ul className="experienceDetails">
-                  {experience.details.map((detail) => <li key={detail}>{detail}</li>)}
-                </ul>
+                <p className="experienceSummary">{experience.summary}</p>
                 <ul className="experienceSkills" aria-label="Skills">
                   {experience.skills.map((skill, skillIndex) => (
                     <li className={`experienceSkill experienceSkill${skillIndex % 3}`} key={skill}>
