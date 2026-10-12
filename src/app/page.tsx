@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const links = [
   { label: "About", href: "#about", className: "navAbout" },
@@ -111,6 +111,113 @@ const studies = [
       "They lost to the baseline at every load, with 0.34–0.75× the throughput. They clash with vLLM's memory, scheduling and compilation assumptions.",
   },
 ];
+
+const projects = [
+  {
+    title: "Otter",
+    description:
+      "A RAG-powered study workspace and instructor dashboard built with Next.js, PostgreSQL, and REST APIs, featuring role-based experiences, anonymized usage analytics, and automated weekly summaries.",
+    href: "https://github.com/sejal-agarwal/otter",
+    color: "blue",
+    skills: ["Next.js", "PostgreSQL", "REST APIs", "RAG"],
+  },
+  {
+    title: "Martletplace",
+    description:
+      "A full-stack community marketplace for UVic students, designed and shipped by a 14-person engineering team that I led as technical project lead.",
+    href: "https://github.com/UVicMartletplace/martletplace",
+    color: "green",
+    skills: ["Full-stack", "Team of 14", "Technical lead"],
+  },
+];
+
+const heartPath =
+  "M32 54 C10 38 4 26 4 17 C4 8 11 3 19 3 C25 3 30 6 32 11 C34 6 39 3 45 3 C53 3 60 8 60 17 C60 26 54 38 32 54 Z";
+
+function PushPin() {
+  return <span aria-hidden="true" className="projectPin" />;
+}
+
+function ProjectBoard() {
+  const boardRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const board = boardRef.current;
+    if (!board) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setVisible(true);
+        observer.disconnect();
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(board);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className={`projectBoard${visible ? " projectBoardVisible" : ""}`} ref={boardRef}>
+      <div className="projectNotes">
+        {projects.map((project) => (
+          <article className={`projectNote projectNote${project.color}`} key={project.title}>
+            <PushPin />
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            <ul className="experienceSkills" aria-label="Technologies">
+              {project.skills.map((skill, skillIndex) => (
+                <li className={`experienceSkill experienceSkill${skillIndex % 3}`} key={skill}>
+                  {skill}
+                </li>
+              ))}
+            </ul>
+            <a className="studyLink" href={project.href} rel="noreferrer" target="_blank">
+              View on GitHub <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+      <div aria-hidden="true" className="projectDecor projectDecorSparkle">
+        <Sparkle className="projectSparkle projectSparkleYellow" />
+        <Sparkle className="projectSparkle projectSparklePink" />
+      </div>
+      <div aria-hidden="true" className="projectDecor projectDecorHeart">
+        <svg viewBox="0 0 64 58">
+          <path className="heartSticker" d={heartPath} />
+          <path className="heartBody" d={heartPath} />
+          <path className="heartShine" d="M13 15 C13 11 16 8.5 20 8.5" />
+        </svg>
+      </div>
+      <div aria-hidden="true" className="projectDecor projectDecorPolaroid">
+        <span className="projectDecorTape" />
+        <svg className="polaroidArt" viewBox="0 0 100 78">
+          <rect width="100" height="78" fill="#d9ecf6" />
+          <rect width="100" height="12" fill="#fffdf8" />
+          <path d="M0 12 H100" stroke="var(--ink)" strokeWidth="1.5" />
+          <circle cx="7" cy="6" r="2.2" fill="#f3aabe" stroke="var(--ink)" strokeWidth="1" />
+          <circle cx="14" cy="6" r="2.2" fill="#ffe483" stroke="var(--ink)" strokeWidth="1" />
+          <circle cx="21" cy="6" r="2.2" fill="#cfead6" stroke="var(--ink)" strokeWidth="1" />
+          <rect x="8" y="19" width="40" height="23" rx="3" fill="#fffdf8" stroke="var(--ink)" strokeWidth="1.5" />
+          <path d="M14 26 H40 M14 32 H34" stroke="#8a858f" strokeLinecap="round" strokeWidth="2" />
+          <rect x="54" y="19" width="38" height="23" rx="3" fill="#fbe0e9" stroke="var(--ink)" strokeWidth="1.5" />
+          <path d="M62 37 V31 M70 37 V25 M78 37 V29 M86 37 V27" stroke="var(--ink)" strokeLinecap="round" strokeWidth="3" />
+          <rect x="8" y="48" width="84" height="22" rx="3" fill="#cfead6" stroke="var(--ink)" strokeWidth="1.5" />
+          <path d="M14 55 H62 M14 62 H48" stroke="var(--ink)" strokeLinecap="round" strokeOpacity="0.55" strokeWidth="2" />
+        </svg>
+        <span className="polaroidCaption">demo day</span>
+      </div>
+      <div aria-hidden="true" className="projectDecor projectDecorTodo">
+        <ul>
+          <li className="done">design it</li>
+          <li className="done">built it</li>
+          <li>take a nap</li>
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 function Sparkle({ className }: { className: string }) {
   return (
@@ -569,6 +676,32 @@ export default function Home() {
             </article>
           </div>
         </div>
+      </section>
+      <section className="projectsSection" id="projects" aria-labelledby="projects-title">
+        <p className="chapterLabel">
+          <Sparkle className="chapterSpark" />
+          <span>chapter four</span>
+        </p>
+        <h2 className="projectsTitle" id="projects-title">
+          Project{" "}
+          <span className="underlinedPhrase">
+            board
+            <svg className="underlineWave" viewBox="0 0 200 18" preserveAspectRatio="none" aria-hidden="true">
+              <path className="underlineWavePath" d={underlinePaths[0]}>
+                <animate
+                  attributeName="d"
+                  dur="8s"
+                  repeatCount="indefinite"
+                  calcMode="spline"
+                  keyTimes="0;0.25;0.5;0.75;1"
+                  keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"
+                  values={[underlinePaths[0], underlinePaths[1], underlinePaths[2], underlinePaths[1], underlinePaths[0]].join(";")}
+                />
+              </path>
+            </svg>
+          </span>
+        </h2>
+        <ProjectBoard />
       </section>
     </main>
   );
