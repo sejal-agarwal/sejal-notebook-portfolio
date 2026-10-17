@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Sparkle } from "@/components/ui/Sparkle";
 import { UnderlinedPhrase } from "@/components/ui/UnderlinedPhrase";
 import { EmailIcon, GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
+import { showBlog } from "@/data/site";
 import { contacts, type ContactLink } from "@/data/contacts";
 import "./contact.css";
 
@@ -16,7 +17,7 @@ const ICONS: Record<ContactLink["icon"], () => React.JSX.Element> = {
 export function Contact() {
   return (
     <Section className="contactSection" id="contact" aria-labelledby="contact-title">
-      <SectionHeading chapter="chapter six" id="contact-title">
+      <SectionHeading chapter={showBlog ? "chapter six" : "chapter five"} id="contact-title">
         Say <UnderlinedPhrase>hi</UnderlinedPhrase>
       </SectionHeading>
 

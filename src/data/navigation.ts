@@ -1,8 +1,10 @@
+import { showBlog } from "./site";
+
 export type NavTone = "blue" | "pink" | "lavender" | "green" | "peach" | "yellow";
 
 export type NavItem = { label: string; href: string; tone: NavTone };
 
-export const homeNavigation: NavItem[] = [
+const allNavigation: NavItem[] = [
   { label: "About", href: "#about", tone: "blue" },
   { label: "Work", href: "#work", tone: "pink" },
   { label: "Research", href: "#research", tone: "lavender" },
@@ -10,3 +12,5 @@ export const homeNavigation: NavItem[] = [
   { label: "Blog", href: "#blog", tone: "peach" },
   { label: "Say hi", href: "#contact", tone: "yellow" },
 ];
+
+export const homeNavigation = allNavigation.filter((item) => showBlog || item.href !== "#blog");

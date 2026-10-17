@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Sparkle } from "@/components/ui/Sparkle";
+import { showBlog } from "@/data/site";
 import { UnderlinedPhrase } from "@/components/ui/UnderlinedPhrase";
 import "./hero.css";
 
@@ -16,14 +17,16 @@ export function Hero() {
         <p className="intro">
           Welcome to my little corner of the internet! Here you&apos;ll find a collection of my software engineering work, HCI research, and various things I&apos;ve been tinkering away at. I also write about what I&apos;m learning, exploring, and thinking about when building human-centered technology.
         </p>
-        <div className="heroActions">
-          <a className="button buttonPrimary" href="#blog">
-            Read my blog <span aria-hidden="true">→</span>
-          </a>
-          <a className="button buttonSecondary" href="#contact">
-            Contact me
-          </a>
-        </div>
+        {showBlog && (
+          <div className="heroActions">
+            <a className="button buttonPrimary" href="#blog">
+              Read my blog <span aria-hidden="true">→</span>
+            </a>
+            <a className="button buttonSecondary" href="#contact">
+              Contact me
+            </a>
+          </div>
+        )}
       </div>
 
       <div className="heroArt" aria-label="A Polaroid photo of Sejal on a pinned notebook page">

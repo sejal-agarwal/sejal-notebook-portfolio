@@ -8,6 +8,7 @@ import { Projects } from "@/components/home/Projects";
 import { Research } from "@/components/home/Research";
 import { HomeHeader } from "@/components/layout/HomeHeader";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { showBlog } from "@/data/site";
 import { PaperPage } from "@/components/ui/PaperPage";
 
 export default function HomePage() {
@@ -21,7 +22,7 @@ export default function HomePage() {
       <Experience />
       <Research />
       <Projects />
-      <BlogPreview />
+      {showBlog && <BlogPreview />}
       <Contact />
     </PaperPage>
   );
