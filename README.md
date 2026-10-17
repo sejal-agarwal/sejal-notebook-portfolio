@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sejal's notebook portfolio
 
-## Getting Started
-
-First, run the development server:
+A Next.js (App Router) portfolio styled like a paper notebook. Blog posts are markdown files in `content/blog/`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+content/blog/          markdown posts (frontmatter: title, date, summary, tags, draft)
+public/                images and paper PDFs
+src/
+  app/                 routes only: layout.tsx, page.tsx (home), blog/, blog/[slug]/
+  components/
+    ui/                reusable building blocks: PaperPage, Section, SectionHeading,
+                       SpiralNotebook, TagChips, PillLink, Reveal, UnderlinedPhrase, Sparkle, icons
+    layout/            SiteHeader, HomeHeader, Wordmark, NavLink
+    home/              one component per home-page section (Hero, About, Experience, ...)
+    blog/              blog-specific components (PostList, PostArticle, BlogBrowser, Prose, ...)
+  data/                site content as typed data (experience, studies, projects, contacts, navigation)
+  hooks/               useScrolled, useRevealOnScroll
+  lib/                 posts.ts (reads markdown), post-types.ts, format-date.ts, tones.ts
+  styles/              tokens.css (colors, type scale) and base.css (reset, body, h1)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Conventions
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Content lives in `src/data/`**, not in components. To add a job, project, or paper, edit the matching file.
+- **Each component owns its stylesheet**, next to it (`Hero.tsx` imports `hero.css`). Class names are global, so they're prefixed by component (`hero*`, `study*`, `project*`).
+- **Shared look comes from tokens.** Colors and the type scale are in `styles/tokens.css`; sections tune the shared heading with `--chapter-accent`, `--heading-gap` and `--heading-gap-mobile`.
+- **Color variants use `data-tone` / `data-color`** attributes (`pink | blue | green`, see `lib/tones.ts`).
+- **Server components by default.** Only pieces that need state or scroll/observer logic are client components (`HomeHeader`, `ExperienceTimeline`, `StudyFolder`, `ProjectBoard`, `Reveal`, `BlogBrowser`, `BlogHeader`).

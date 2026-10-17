@@ -1,0 +1,129 @@
+.experienceSection {
+  --chapter-accent: var(--pink-soft);
+}
+
+.experienceTimeline {
+  position: relative;
+  display: grid;
+  gap: 34px;
+  margin: 0;
+  padding: 0 0 0 var(--timeline-indent, 28px);
+  list-style: none;
+}
+
+.experienceTimeline::before,
+.experienceTimeline::after {
+  position: absolute;
+  z-index: 0;
+  top: var(--timeline-start, 0px);
+  height: var(--timeline-length, 100%);
+  left: 6px;
+  border-left: 2px solid rgba(41, 38, 46, 0.18);
+  content: "";
+  opacity: 0;
+  transition: opacity 700ms ease;
+  pointer-events: none;
+}
+
+.experienceTimelineVisible::before,
+.experienceTimelineVisible::after { opacity: 1; }
+
+.experienceTimeline::after {
+  transform: scaleY(var(--timeline-progress, 0));
+  transform-origin: top;
+  border-color: rgba(41, 38, 46, 0.64);
+}
+
+.experienceItem {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  translate: 0 14px;
+  transition: opacity 700ms ease, translate 700ms cubic-bezier(0.2, 0.8, 0.58, 1);
+}
+
+.experienceItemVisible { opacity: 1; translate: 0 0; }
+
+.experienceMarker {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: calc(7px - var(--timeline-indent, 28px));
+  width: 16px;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 1.5px solid var(--marker-color);
+  border-radius: 50%;
+  background: var(--paper);
+  transition: background-color 450ms ease, scale 450ms cubic-bezier(0.2, 0.8, 0.58, 1);
+}
+
+.experienceMarker[data-color="pink"] { --marker-color: #e78da5; }
+.experienceMarker[data-color="blue"] { --marker-color: #83abc9; }
+.experienceMarker[data-color="green"] { --marker-color: #83b68c; }
+
+.experienceMarkerActive {
+  scale: 1.14;
+  background: var(--marker-color);
+}
+
+.experienceCard {
+  position: relative;
+  min-height: 180px;
+  padding: 24px 25px 20px;
+  border: 1.5px solid var(--ink);
+  border-radius: 11px;
+  background: rgba(255, 253, 248, 0.88);
+  box-shadow: 5px 6px 0 var(--ink);
+}
+
+.experienceCard[data-color="pink"] { --experience-date-highlight: var(--pink); }
+.experienceCard[data-color="blue"] { --experience-date-highlight: #b9d4e6; }
+.experienceCard[data-color="green"] { --experience-date-highlight: #bfe0c5; }
+
+.experienceCard h3 {
+  margin: 0 0 4px;
+  font-size: var(--fs-card-title);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.experienceDates {
+  position: absolute;
+  top: 19px;
+  right: 22px;
+  padding: 0 8px;
+  border-radius: 3px 10px 4px 12px / 10px 4px 12px 3px;
+  color: var(--ink);
+  background: linear-gradient(176deg, transparent 12%, var(--experience-date-highlight) 14%, var(--experience-date-highlight) 90%, transparent 93%);
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: var(--fs-hand-sm);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.experienceRole {
+  margin: 0 0 12px;
+  color: var(--muted-ink);
+  font-size: var(--fs-card-meta);
+  font-weight: 700;
+}
+
+.experienceSummary {
+  margin: 0 0 16px;
+  color: var(--muted-ink);
+  font-size: var(--fs-card-body);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .experienceTimeline { --timeline-indent: 25px; gap: 27px; }
+  .experienceCard { min-height: 0; padding: 22px 17px 18px; }
+  /* dates drop below the role, left-aligned, instead of floating above the title */
+  .experienceCard { display: flex; flex-direction: column; }
+  .experienceCard > * { order: 0; }
+  .experienceRole { order: 1; margin-bottom: 8px; }
+  .experienceDates { order: 2; position: static; width: fit-content; margin-bottom: 12px; }
+  .experienceSummary, .experienceCard > .tagChips { order: 3; }
+}

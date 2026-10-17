@@ -1,0 +1,31 @@
+:root {
+  --ink: #29262e;
+  --muted-ink: #625d68;
+  --paper: #fffaf0;
+  --desk: #eae3d6;
+  --pink: #f3aabe;
+  --yellow: #ffe483;
+  --sans-fallback: "Trebuchet MS", "Segoe UI", sans-serif;
+  --hand-fallback: "Comic Sans MS", "Bradley Hand", cursive;
+
+  /* soft tints behind chips, cards and links (see Tone in lib/tones.ts) */
+  --pink-soft: #fbe0e9;
+  --blue-soft: #d9ecf6;
+  --green-soft: #cfead6;
+
+  /* type scale shared by every section */
+  --fs-card-title: 24px;
+  --fs-card-meta: 18px;
+  --fs-card-body: 18px;
+  --fs-chip: 13px;
+  --fs-hand-sm: 24px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --fs-card-title: 22px;
+    --fs-card-meta: 16px;
+    --fs-card-body: 16px;
+    --fs-hand-sm: 20px;
+  }
+}

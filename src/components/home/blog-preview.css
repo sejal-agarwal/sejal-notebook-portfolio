@@ -1,0 +1,9 @@
+.blogSection {
+  --chapter-accent: #ffdcc2;
+}
+
+.spiralFooter {
+  display: flex;
+  margin-top: 28px;
+  padding-top: 4px;
+}

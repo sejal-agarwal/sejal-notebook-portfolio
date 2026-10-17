@@ -1,0 +1,34 @@
+.tagChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tagChip {
+  min-height: 24px;
+  padding: 3px 9px;
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  background: var(--pink-soft);
+  font-size: var(--fs-chip);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.tagChip[data-tone="blue"] { background: var(--blue-soft); }
+.tagChip[data-tone="green"] { background: var(--green-soft); }
+
+.tagChip:hover {
+  animation: tag-wiggle 360ms ease-in-out;
+}
+
+.tagChipLink { display: inline-block; }
+.tagChipLink:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
+
+@keyframes tag-wiggle {
+  0%, 100% { transform: rotate(0); }
+  45% { transform: rotate(-1.5deg); }
+}

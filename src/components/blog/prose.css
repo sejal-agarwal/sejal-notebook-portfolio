@@ -1,0 +1,100 @@
+.prose {
+  min-width: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+}
+
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+.prose p { margin: 0 0 1.1em; }
+.prose h2 { margin: 1.6em 0 0.5em; font-size: 28px; font-weight: 800; line-height: 1.2; }
+.prose h3 { margin: 1.4em 0 0.4em; font-size: 22px; font-weight: 800; line-height: 1.25; }
+.prose h4 { margin: 1.2em 0 0.4em; font-size: 18px; font-weight: 800; }
+.prose ul,
+.prose ol { margin: 0 0 1.1em; padding-left: 1.4em; }
+.prose li { margin-bottom: 0.25em; }
+.prose li::marker { color: #d9738d; font-weight: 800; }
+.prose li:has(> input[type="checkbox"]) { list-style: none; margin-left: -1.2em; }
+.prose input[type="checkbox"] { margin-right: 8px; accent-color: var(--ink); }
+
+.prose a {
+  text-decoration: underline;
+  text-decoration-color: var(--pink);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+.prose a:hover { background: var(--yellow); }
+
+.prose blockquote {
+  margin: 1.4em 0;
+  padding: 4px 0 4px 20px;
+  border-left: 4px solid var(--pink);
+  color: var(--muted-ink);
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.prose blockquote p { margin: 0; }
+
+.prose code {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #fbe0e9;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.88em;
+}
+
+.prose pre {
+  margin: 1.3em 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--ink);
+  box-shadow: 4px 4px 0 var(--pink);
+  color: #fffaf0;
+  line-height: 1.6;
+}
+
+.prose pre code { padding: 0; background: none; font-size: 14px; }
+
+.prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.4em 0;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+
+.prose hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 2px dashed rgba(41, 38, 46, 0.35);
+}
+
+.prose table {
+  display: block;
+  max-width: 100%;
+  margin: 1.3em 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.prose th,
+.prose td { padding: 8px 14px; border: 1.5px solid var(--ink); text-align: left; }
+.prose th { background: #d9ecf6; font-weight: 800; }
+.prose td { background: rgba(255, 255, 255, 0.7); }
+
+@media (max-width: 900px) {
+  .prose { font-size: 17px; line-height: 1.75; }
+  .prose h2 { font-size: 24px; }
+  .prose blockquote { font-size: 22px; }
+}

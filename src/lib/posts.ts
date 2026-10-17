@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import type { Post, PostMeta } from "./blog-utils";
+import type { Post, PostMeta } from "./post-types";
 
 const POSTS_DIR = path.join(process.cwd(), "content", "blog");
 

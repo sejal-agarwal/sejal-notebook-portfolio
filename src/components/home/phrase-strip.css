@@ -1,0 +1,60 @@
+.phraseStrip {
+  width: 100%;
+  overflow: hidden;
+  border-top: 2px dashed rgba(98, 93, 104, 0.42);
+  border-bottom: 2px dashed rgba(98, 93, 104, 0.42);
+  background: #fbe2e9;
+}
+
+.phraseTrack {
+  display: flex;
+  width: max-content;
+  animation: phrase-roll 38s linear infinite;
+}
+
+.phraseSet {
+  display: flex;
+  min-height: 70px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(28px, 4vw, 58px);
+  padding: 0 clamp(28px, 4vw, 58px);
+  color: #514a4c;
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: clamp(20px, 2vw, 28px);
+  font-style: italic;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.phraseSpark {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  color: var(--yellow);
+}
+
+@keyframes phrase-roll {
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 900px) {
+  .phraseSet {
+    min-height: 60px;
+    gap: 26px;
+    padding-inline: 28px;
+    font-size: clamp(19px, 5vw, 24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phraseTrack {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: none;
+  }
+
+  .phraseSet { white-space: normal; }
+  .phraseSet + .phraseSet { display: none; }
+}

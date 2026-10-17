@@ -1,0 +1,68 @@
+/* search + tag filter */
+.blogSearch { margin-bottom: 18px; }
+
+.blogSearch label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.blogSearch input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 16px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: #fffdf8;
+  box-shadow: 3px 3px 0 var(--ink);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.blogSearch input:focus-visible { outline: 3px solid #477c73; outline-offset: 3px; }
+
+.tagFilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+.tagButton {
+  min-height: 36px;
+  padding: 4px 13px;
+  border: 1.5px solid var(--ink);
+  border-radius: 9px;
+  background: #fbe0e9;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.tagButton[data-tone="pink"] { background: var(--pink-soft); }
+.tagButton[data-tone="blue"] { background: var(--blue-soft); }
+.tagButton[data-tone="green"] { background: var(--green-soft); }
+.tagButton span { opacity: 0.6; }
+
+.tagButton:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
+
+.tagButton.tagButtonActive,
+.tagButton.tagButtonActive span {
+  background: var(--ink);
+  color: #fff;
+  opacity: 1;
+}
+
+.blogCount {
+  margin: 0 0 22px;
+  color: var(--muted-ink);
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 22px;
+  font-weight: 700;
+}

@@ -1,0 +1,22 @@
+.pillLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: box-shadow 180ms ease, translate 180ms ease;
+}
+
+.pillLink:hover {
+  box-shadow: 5px 5px 0 var(--ink);
+  translate: -1px -1px;
+}
+
+.pillLink:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }

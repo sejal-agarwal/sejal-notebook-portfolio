@@ -1,0 +1,14 @@
+.postMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 4px;
+  color: var(--muted-ink);
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 22px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .postMeta { font-size: 20px; }
+}
