@@ -35,7 +35,7 @@ export default async function BlogPost({ params }: PageProps<"/blog/[slug]">) {
       <BlogHeader />
       <div className="postWrap">
         <Link className="backLink" href="/blog">
-          <span aria-hidden="true">←</span> All entries
+          <span aria-hidden="true">←</span> <span className="backLinkText">All entries</span>
         </Link>
         <div className="spiralNotebook">
           <div className="spiralCoils" aria-hidden="true">

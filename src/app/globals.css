@@ -175,6 +175,7 @@ a:focus-visible {
 .navWork { background: #fbe0e9; }
 .navResearch { background: #eee4fb; }
 .navProjects { background: #cfead6; }
+.navBlog { background: #ffdcc2; }
 .navLog { background: #d6f2e2; }
 .navHello { background: #fff2a9; }
 
@@ -1360,14 +1361,19 @@ h1 {
   z-index: 1;
   opacity: 0;
   scale: 0.6;
-  transition: opacity 400ms ease, scale 450ms cubic-bezier(0.3, 1.5, 0.5, 1);
+  transition:
+    opacity 400ms ease,
+    scale 450ms cubic-bezier(0.3, 1.5, 0.5, 1),
+    translate 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    rotate 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 220ms ease;
 }
 
 .projectBoardVisible .projectDecor { opacity: 1; scale: 1; }
-.projectDecorSparkle { transition-delay: 350ms; }
-.projectDecorPolaroid { transition-delay: 500ms; }
-.projectDecorTodo { transition-delay: 650ms; }
-.projectDecorHeart { transition-delay: 800ms; }
+.projectDecorSparkle { transition-delay: 350ms, 350ms, 0s, 0s, 0s; }
+.projectDecorPolaroid { transition-delay: 500ms, 500ms, 0s, 0s, 0s; }
+.projectDecorTodo { transition-delay: 650ms, 650ms, 0s, 0s, 0s; }
+.projectDecorHeart { transition-delay: 800ms, 800ms, 0s, 0s, 0s; }
 
 .projectSparkle { position: absolute; display: block; }
 .projectSparkleYellow { top: 0; left: 0; width: 36px; height: 36px; color: var(--yellow); rotate: -8deg; }
@@ -1479,6 +1485,9 @@ h1 {
   .projectDecorPolaroid { top: 46px; right: 30px; }
   .projectDecorTodo { right: 28px; bottom: 44px; display: block; width: 122px; padding-inline: 10px; }
 }
+
+.projectDecorPolaroid:hover { rotate: 8deg; }
+.projectDecorTodo:hover { rotate: 0deg; }
 
 .projectDecorHeart:hover svg { animation: heart-wiggle 520ms ease-in-out; }
 
