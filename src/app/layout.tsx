@@ -14,7 +14,7 @@ const hand = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Sejal Agarwal | Design Portfolio",
+  title: "Sejal Agarwal",
   description: "A UI/UX engineer's notebook: about me, projects, and notes.",
 };
 
