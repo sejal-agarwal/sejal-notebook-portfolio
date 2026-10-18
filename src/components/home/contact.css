@@ -1,5 +1,8 @@
 .contactSection {
   --chapter-accent: #fff2a9;
+
+  /* last section on the page, so it needs less room below than the others */
+  padding-bottom: 40px;
 }
 
 .postcard {
