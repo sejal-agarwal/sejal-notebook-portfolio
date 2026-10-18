@@ -1,21 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { PillLink } from "@/components/ui/PillLink";
 import { studies } from "@/data/studies";
+import { StudySheet } from "./StudySheet";
 
-/** Manila-folder tabs, one per study; the selected study shows on a clipped sheet. */
+/**
+ * Research studies as a manila folder. On desktop the tabs pick which sheet shows;
+ * on phones the sheets sit in a swipeable row with dots underneath.
+ */
 export function StudyFolder() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const study = studies[activeIndex];
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  /** Distance between one sheet's left edge and the next, so scroll position maps to an index. */
+  function sheetStep(track: HTMLDivElement) {
+    const [first, second] = track.children as HTMLCollectionOf<HTMLElement>;
+    return second.offsetLeft - first.offsetLeft;
+  }
+
+  function handleScroll() {
+    const track = trackRef.current;
+    if (!track) return;
+    const index = Math.round(track.scrollLeft / sheetStep(track));
+    setActiveIndex(Math.min(Math.max(index, 0), studies.length - 1));
+  }
+
+  function scrollToSheet(index: number) {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: index * sheetStep(track), behavior: "smooth" });
+  }
 
   return (
     <Reveal className="studyFolder">
       <div className="studyTabs" role="tablist" aria-label="Research studies">
         {studies.map((item, index) => (
           <button
-            aria-controls="study-panel"
+            aria-controls={`study-panel-${index}`}
             aria-selected={activeIndex === index}
             className={`studyTab${activeIndex === index ? " studyTabActive" : ""}`}
             id={`study-tab-${index}`}
@@ -29,45 +51,23 @@ export function StudyFolder() {
         ))}
       </div>
       <div className="studyDrawer">
-        <article
-          aria-labelledby={`study-tab-${activeIndex}`}
-          className="studySheet"
-          id="study-panel"
-          key={activeIndex}
-          role="tabpanel"
-        >
-          <svg className="studyClip" viewBox="0 0 24 60" aria-hidden="true">
-            <path
-              d="M17 20 V46 a6 6 0 0 1 -12 0 V12 a8 8 0 0 1 16 0 V44"
-              fill="none"
-              stroke="var(--ink)"
-              strokeLinecap="round"
-              strokeWidth="3"
+        <div className="studyTrack" onScroll={handleScroll} ref={trackRef}>
+          {studies.map((study, index) => (
+            <StudySheet active={activeIndex === index} index={index} key={study.tab} study={study} />
+          ))}
+        </div>
+        <div className="studyDots">
+          {studies.map((study, index) => (
+            <button
+              aria-current={activeIndex === index}
+              aria-label={`Show study ${index + 1} of ${studies.length}: ${study.tab}`}
+              className="studyDot"
+              key={study.tab}
+              onClick={() => scrollToSheet(index)}
+              type="button"
             />
-          </svg>
-          <h3>{study.name}</h3>
-          {study.venue && <p className="studyVenue">{study.venue}</p>}
-          <dl className="studyNotes">
-            <div>
-              <dt>The question</dt>
-              <dd>{study.question}</dd>
-            </div>
-            <div>
-              <dt>The study</dt>
-              <dd>{study.method}</dd>
-            </div>
-            <div>
-              <dt>The finding</dt>
-              <dd>{study.finding}</dd>
-            </div>
-          </dl>
-          <div className="studyFooter">
-            <PillLink href={study.href} rel="noreferrer" target="_blank">
-              Read the paper
-            </PillLink>
-            {study.stamp && <span className="studyStamp">{study.stamp}</span>}
-          </div>
-        </article>
+          ))}
+        </div>
       </div>
     </Reveal>
   );

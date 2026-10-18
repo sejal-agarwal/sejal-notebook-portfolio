@@ -1,24 +1,31 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { TagChips } from "@/components/ui/TagChips";
 import { experiences } from "@/data/experience";
 
 /** Fraction of the viewport height past which a card counts as reached. */
 const ACTIVATION_LINE = 0.7;
 
+/** Pixels a marker must travel back past the line before it deactivates, to stop flicker. */
+const HYSTERESIS = 8;
+
 /**
- * Vertical timeline whose line fills in and whose cards fade in as you scroll.
- * Positions are measured from the DOM, so the line stays aligned at any width.
+ * Vertical timeline. The line and dots fade in together; then, as you scroll, the
+ * line and each dot fill in and the matching card fades in the first time its dot
+ * fills. Positions are measured from the DOM, so the line stays aligned at any width.
  */
 export function ExperienceTimeline() {
   const timelineRef = useRef<HTMLOListElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
-  const [revealed, setRevealed] = useState<number[]>([]);
+  const revealed = useRevealOnScroll(timelineRef);
   const [active, setActive] = useState<number[]>([]);
+  const [shown, setShown] = useState<number[]>([]);
 
   useEffect(() => {
-    const revealedIndexes = new Set<number>();
+    let activeIndexes = new Set<number>();
+    let frame = 0;
 
     function update() {
       const timeline = timelineRef.current;
@@ -31,14 +38,11 @@ export function ExperienceTimeline() {
         return rect.top + rect.height / 2;
       });
 
-      const activeIndexes: number[] = [];
-      const newlyRevealed: number[] = [];
+      const nextActive = new Set<number>();
       centers.forEach((center, index) => {
-        if (center >= activationLine) return;
-        activeIndexes.push(index);
-        if (revealedIndexes.has(index)) return;
-        revealedIndexes.add(index);
-        newlyRevealed.push(index);
+        const line = activeIndexes.has(index) ? activationLine + HYSTERESIS : activationLine;
+        if (center >= line) return;
+        nextActive.add(index);
       });
 
       const timelineTop = timeline.getBoundingClientRect().top;
@@ -50,40 +54,50 @@ export function ExperienceTimeline() {
       timeline.style.setProperty("--timeline-length", `${lineLength}px`);
       timeline.style.setProperty("--timeline-progress", `${progress}`);
 
-      setRevealed((current) => {
-        const fresh = newlyRevealed.filter((index) => !current.includes(index));
+      activeIndexes = nextActive;
+      const nextList = [...nextActive];
+      // a card stays visible once its dot has filled, even if you scroll back up
+      setShown((current) => {
+        const fresh = nextList.filter((index) => !current.includes(index));
         return fresh.length ? [...current, ...fresh] : current;
       });
       setActive((current) =>
-        current.length === activeIndexes.length && current.every((index, position) => index === activeIndexes[position])
+        current.length === nextList.length && current.every((index, position) => index === nextList[position])
           ? current
-          : activeIndexes,
+          : nextList,
       );
     }
 
+    // at most one measurement per frame, however fast scroll events arrive
+    function scheduleUpdate() {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
+    }
+
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
     };
   }, []);
 
   return (
-    <ol
-      className={`experienceTimeline${revealed.length > 0 ? " experienceTimelineVisible" : ""}`}
-      ref={timelineRef}
-    >
+    <ol className="experienceTimeline" data-revealed={revealed} ref={timelineRef}>
       {experiences.map((experience, index) => (
-        <li className={`experienceItem${revealed.includes(index) ? " experienceItemVisible" : ""}`} key={experience.company}>
+        <li className="experienceItem" key={experience.company}>
           <span
             className={`experienceMarker${active.includes(index) ? " experienceMarkerActive" : ""}`}
             data-color={experience.color}
             aria-hidden="true"
           />
           <article
-            className="experienceCard"
+            className={`experienceCard${shown.includes(index) ? " experienceCardVisible" : ""}`}
             data-color={experience.color}
             ref={(element) => {
               cardRefs.current[index] = element;

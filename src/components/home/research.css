@@ -63,14 +63,30 @@
   to { opacity: 1; translate: 0 0; }
 }
 
+/*
+ * Every sheet shares one grid cell, so the folder is always as tall as the tallest
+ * study. Only the selected sheet is visible; selecting it replays the entrance animation.
+ */
+.studyTrack { display: grid; }
+
+.studyDots { display: none; }
+
 .studySheet {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  grid-area: 1 / 1;
   min-height: 0;
   padding: 30px 34px 28px;
   border: 2px solid var(--ink);
   background: #fffdf8;
   box-shadow: 3px 4px 0 var(--ink);
   rotate: -0.4deg;
+}
+
+.studySheet:not([data-active="true"]) { visibility: hidden; }
+
+.studySheet[data-active="true"] {
   animation: study-swap 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
@@ -120,6 +136,15 @@
   margin: 0;
 }
 
+.studyBrief {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: var(--fs-card-body);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
 .studyNotes dt {
   margin: 0 0 8px;
   color: #c4566f;
@@ -164,26 +189,66 @@
 }
 
 @media (max-width: 900px) {
-  .studyTabs { flex-wrap: nowrap; gap: 6px; margin: 0 14px -2px 0; }
-  .studyTab {
+  /* phones: swipe between sheets (dots show position) instead of tabs */
+  .studyTabs { display: none; }
+  .studyDrawer { padding: 36px 14px 24px; border-radius: 20px; }
+
+  /* padding + matching negative margin give the clip and shadows room inside the scroller */
+  .studyTrack {
     display: flex;
-    min-width: 0;
-    flex: 1 1 0;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 4px 6px;
-    border-radius: 10px 10px 0 0;
-    font-size: 17px;
-    line-height: 1.1;
-    text-align: center;
+    gap: 12px;
+    margin: -26px -6px 0;
+    padding: 26px 6px 10px;
+    overflow-x: auto;
+    scroll-padding-inline: 6px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
   }
-  .studyTabActive { padding-top: 11px; }
-    .studyDrawer { padding: 36px 14px; }
-  .studySheet { padding: 34px 22px 30px; }
+
+  .studyTrack::-webkit-scrollbar { display: none; }
+
+  .studyTrack > .studySheet {
+    flex: 0 0 100%;
+    padding: 34px 22px 30px;
+    scroll-snap-align: start;
+    visibility: visible;
+    animation: none;
+  }
+
+  .studyDots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  /* 28px tap target around a 12px dot */
+  .studyDot {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .studyDot::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    translate: -50% -50%;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: transparent;
+    content: "";
+    transition: background-color 180ms ease;
+  }
+
+  .studyDot[aria-current="true"]::before { background: var(--ink); }
+
   .studyNotes { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .studyStamp { font-size: 14px; }
-}
-
-@media (max-width: 380px) {
-  .studyTab { padding-inline: 2px; font-size: 15px; }
 }

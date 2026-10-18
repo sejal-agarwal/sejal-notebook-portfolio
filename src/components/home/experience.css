@@ -9,7 +9,10 @@
   margin: 0;
   padding: 0 0 0 var(--timeline-indent, 28px);
   list-style: none;
+  transition: opacity 800ms ease;
 }
+
+.experienceTimeline[data-revealed="false"] { opacity: 0; }
 
 .experienceTimeline::before,
 .experienceTimeline::after {
@@ -20,13 +23,8 @@
   left: 6px;
   border-left: 2px solid rgba(41, 38, 46, 0.18);
   content: "";
-  opacity: 0;
-  transition: opacity 700ms ease;
   pointer-events: none;
 }
-
-.experienceTimelineVisible::before,
-.experienceTimelineVisible::after { opacity: 1; }
 
 .experienceTimeline::after {
   transform: scaleY(var(--timeline-progress, 0));
@@ -37,12 +35,7 @@
 .experienceItem {
   position: relative;
   z-index: 1;
-  opacity: 0;
-  translate: 0 14px;
-  transition: opacity 700ms ease, translate 700ms cubic-bezier(0.2, 0.8, 0.58, 1);
 }
-
-.experienceItemVisible { opacity: 1; translate: 0 0; }
 
 .experienceMarker {
   position: absolute;
@@ -55,7 +48,7 @@
   border: 1.5px solid var(--marker-color);
   border-radius: 50%;
   background: var(--paper);
-  transition: background-color 450ms ease, scale 450ms cubic-bezier(0.2, 0.8, 0.58, 1);
+  transition: background-color 250ms ease, scale 250ms ease;
 }
 
 .experienceMarker[data-color="pink"] { --marker-color: #e78da5; }
@@ -75,7 +68,11 @@
   border-radius: 11px;
   background: rgba(255, 253, 248, 0.88);
   box-shadow: 5px 6px 0 var(--ink);
+  opacity: 0;
+  transition: opacity 700ms ease;
 }
+
+.experienceCardVisible { opacity: 1; }
 
 .experienceCard[data-color="pink"] { --experience-date-highlight: var(--pink); }
 .experienceCard[data-color="blue"] { --experience-date-highlight: #b9d4e6; }
