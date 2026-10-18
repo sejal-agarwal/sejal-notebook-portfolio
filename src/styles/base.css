@@ -59,7 +59,8 @@ h1 {
 }
 
 @media (max-width: 900px) {
-  body { padding: 10px; }
+  /* phones: the dotted paper fills the whole screen, with no desk around it */
+  body { padding: 0; background: var(--paper); }
   h1 { font-size: clamp(28px, 9vw, 56px); }
 }
 

@@ -45,14 +45,12 @@
 
 @media (max-width: 900px) {
   .paper {
-    min-height: calc(100svh - 20px);
-    border-radius: 19px;
+    min-height: 100svh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 
-  .binderRings {
-    top: 8px;
-    width: 58%;
-  }
-
-  .binderRings span { width: 13px; }
+  /* phones: no hole punches, since the paper is full-screen */
+  .binderRings { display: none; }
 }
