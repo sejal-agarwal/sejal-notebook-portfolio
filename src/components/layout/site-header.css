@@ -40,6 +40,15 @@
   transform: rotate(-3deg);
 }
 
+/*
+ * The slanted handwriting overhangs its text box. Some browsers (notably iOS Safari)
+ * clip anything outside that box on a rotated element, so leave room on the right.
+ */
+.wordmark > span {
+  padding-right: 0.5em;
+  white-space: nowrap;
+}
+
 .wordmarkSpark {
   color: #f29bb1;
   width: 27px;
