@@ -23,10 +23,18 @@
   text-decoration: underline;
   text-decoration-color: var(--pink);
   text-decoration-thickness: 3px;
+  text-decoration-skip-ink: none; /* keep the line unbroken under g, p, y */
   text-underline-offset: 3px;
+
+  /* yellow highlighter that sweeps in on hover (same as the entry titles) */
+  background: linear-gradient(var(--yellow), var(--yellow)) 0 100% / 0 92% no-repeat;
+  transition: background-size 220ms ease;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
-.prose a:hover { background: var(--yellow); }
+.prose a:hover,
+.prose a:focus-visible { background-size: 100% 92%; }
 
 .prose blockquote {
   margin: 1.4em 0;
@@ -70,6 +78,69 @@
   margin: 1.4em 0;
   border: 2px solid var(--ink);
   border-radius: 8px;
+}
+
+/* images become polaroids taped to the page; the markdown title is the caption */
+.polaroids {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 26px;
+  margin: 2em 0 1.8em;
+}
+
+.polaroid {
+  position: relative;
+  width: min(100%, 360px);
+  margin: 0;
+  padding: 12px 12px 14px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(65, 54, 40, 0.18), 0 1px 0 rgba(65, 54, 40, 0.08);
+  rotate: -2deg;
+  transition: rotate 260ms cubic-bezier(0.2, 0.8, 0.2, 1), translate 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 260ms ease;
+}
+
+.polaroid:hover {
+  rotate: 0deg;
+  translate: 0 -4px;
+  box-shadow: 0 16px 28px rgba(65, 54, 40, 0.24), 0 1px 0 rgba(65, 54, 40, 0.08);
+}
+
+/* strip of washi tape across the top */
+.polaroid::before {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 84px;
+  height: 22px;
+  translate: -50% 0;
+  rotate: -3deg;
+  background: repeating-linear-gradient(45deg, #f7a5bd 0 9px, #ffe483 9px 18px);
+  content: "";
+  opacity: 0.94;
+}
+
+/* the whole picture, never cropped: its height follows its own proportions */
+.prose .polaroid .polaroidPhoto {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 0 0 1px rgba(41, 38, 46, 0.12);
+}
+
+.polaroid figcaption {
+  margin-top: 10px;
+  color: #514a4c;
+  font-family: var(--font-hand, var(--hand-fallback));
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
 }
 
 .prose hr {
