@@ -13,7 +13,9 @@
   height: 0.24em;
   overflow: visible;
   pointer-events: none;
-  clip-path: inset(0 100% 0 0);
+  /* the reveal wipes left to right; it must clip only sideways, since the wave's stroke
+     is thicker than the box and overhangs it above and below */
+  clip-path: inset(-12px 100% -12px -4px);
   animation: underline-reveal 1.35s 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
@@ -26,7 +28,7 @@
 }
 
 @keyframes underline-reveal {
-  to { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(-12px -4px -12px -4px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

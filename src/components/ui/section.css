@@ -33,7 +33,13 @@
 .sectionTitle {
   width: fit-content;
   max-width: none;
-  margin: 0 0 42px;
+  /*
+   * Space under the title. Boxed content (cards, folder, notebook) starts right at its top
+   * edge, so it gets about 8px more than a text block, whose first line sits lower inside
+   * its own box. Text sections (hero, About) pull their text up by that much, so the gap you
+   * actually see is the same everywhere.
+   */
+  margin: 0 0 35px;
   font-size: clamp(42px, 4.2vw, 62px);
   font-weight: 800;
   line-height: 1;
@@ -63,7 +69,7 @@
   }
 
   .sectionTitle {
-    margin-bottom: 35px;
+    margin-bottom: 29px;
     font-size: clamp(40px, 10vw, 58px);
   }
 }

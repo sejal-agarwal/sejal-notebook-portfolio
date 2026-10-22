@@ -3,7 +3,6 @@
 }
 
 .studyFolder {
-  padding-top: 6px;
   transition: opacity 800ms ease, translate 800ms cubic-bezier(0.2, 0.8, 0.58, 1);
 }
 

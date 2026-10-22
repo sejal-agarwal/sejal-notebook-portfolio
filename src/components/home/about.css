@@ -10,6 +10,7 @@
 
 .aboutBody {
   max-width: 720px;
+  margin-top: -0.45em; /* see .sectionTitle: text blocks sit lower in their box than cards do */
   color: var(--muted-ink);
   font-size: 18px;
   font-weight: 500;
