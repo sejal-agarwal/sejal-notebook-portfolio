@@ -12,7 +12,7 @@ First, I got obsessed with making the perfect personal website. My [original web
 ![My original website: an indigo, illustration-heavy personal site](/blog-images/website-original.png "the original")
 ![The pink bento-grid redesign](/blog-images/website-pink-grid.png "the pink bento grid")
 
-Next, I decided to do something a bit more fun. I got really excited about building a website that looks like a pixelated world. I got a sprite package, spent numerous hours cutting out pixelated houses from the sprite sheets, and made a cute [little landing page](https://github.com/sejal-agarwal/sejal-pixel-website). And as much as I love Stardew Valley kind of games, the website didn't really feel like me.
+Next, I decided to do something a bit more fun. I got really excited about building a website that looks like a pixelated world. I got a sprite package, spent numerous hours cutting out pixelated houses from the sprite sheets, and made a cute little [landing page](https://github.com/sejal-agarwal/sejal-pixel-website). And as much as I love Stardew Valley kind of games, the website didn't really feel like me.
 
 ![The pixel-art landing page with a little house and a bunny](/blog-images/website-pixel.png "the pixel world")
 
