@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TagChips } from "@/components/ui/TagChips";
 import { UnderlinedPhrase } from "@/components/ui/UnderlinedPhrase";
 import { projects } from "@/data/projects";
+import { ElephantDoodle } from "./ElephantDoodle";
 import { ProjectBoard } from "./ProjectBoard";
 import "./projects.css";
 
@@ -20,11 +21,18 @@ export function Projects() {
             <h3>{project.title}</h3>
             <p>{project.description}</p>
             <TagChips tags={project.skills} label="Technologies" />
-            <PillLink href={project.href} rel="noreferrer" target="_blank">
-              View on GitHub
-            </PillLink>
+            <div className="projectLinks">
+              {project.liveHref && <PillLink href={project.liveHref}>Live site</PillLink>}
+              <PillLink href={project.href} rel="noreferrer" target="_blank">
+                View on GitHub
+              </PillLink>
+            </div>
           </article>
         ))}
+        <article aria-label="Doodle of an elephant" className="projectNote projectDoodle" data-color="yellow">
+          <span aria-hidden="true" className="projectPin" />
+          <ElephantDoodle />
+        </article>
       </ProjectBoard>
     </Section>
   );

@@ -26,10 +26,12 @@
 }
 
 .projectNotes {
+  --notes-gap: clamp(30px, 5vw, 72px);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: clamp(30px, 5vw, 72px);
+  column-gap: var(--notes-gap);
+  row-gap: clamp(28px, 3vw, 44px);
 }
 
 .projectNote {
@@ -47,9 +49,14 @@
 }
 
 .projectNote[data-color="blue"] { background: var(--blue-soft); }
-.projectNote[data-color="green"] { background: var(--green-soft); margin-top: 34px; }
+.projectNote[data-color="green"] { background: var(--green-soft); }
+.projectNote[data-color="yellow"] { background: #fff3b8; }
+.projectNote:nth-child(even) { margin-top: 34px; }
+.projectNote[data-color="pink"] { background: var(--pink-soft); }
 .projectBoardVisible .projectNote { opacity: 1; }
 .projectBoardVisible .projectNote:nth-child(2) { transition-delay: 160ms; }
+.projectBoardVisible .projectNote:nth-child(3) { transition-delay: 320ms; }
+.projectBoardVisible .projectNote:nth-child(4) { transition-delay: 480ms; }
 
 .projectNote:hover { box-shadow: 8px 10px 0 rgba(41, 38, 46, 0.85); }
 
@@ -69,7 +76,7 @@
 }
 
 .projectNote .tagChips { margin-bottom: 22px; }
-.projectNote .pillLink { margin-top: auto; }
+.projectLinks { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
 
 
 .projectPin {
@@ -110,6 +117,8 @@
 
 .projectNote[data-color="blue"] .projectPin { --pin-color: var(--pink); }
 .projectNote[data-color="green"] .projectPin { --pin-color: var(--yellow); }
+.projectNote[data-color="yellow"] .projectPin { --pin-color: var(--pink); }
+.projectNote[data-color="pink"] .projectPin { --pin-color: #9fd3ee; }
 
 .projectBoardVisible .projectPin { scale: 1; }
 
@@ -257,11 +266,14 @@
 }
 
 @media (max-width: 900px) {
-  .projectNotes { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .projectNotes { --notes-gap: 34px; row-gap: 34px; grid-template-columns: minmax(0, 1fr); }
   .projectBoard {
     padding: 38px 30px 42px;
     box-shadow: inset 0 0 0 7px #b88556, inset 0 0 0 9px var(--ink), 5px 6px 0 var(--ink);
   }
   .projectNote { padding: 58px 22px 26px; }
-  .projectNote[data-color="green"] { margin-top: 0; }
+  .projectNote:nth-child(even) { margin-top: 0; }
 }
+
+.projectDoodle { align-items: center; justify-content: center; }
+.projectDoodle svg { display: block; width: min(100%, 260px); height: auto; }

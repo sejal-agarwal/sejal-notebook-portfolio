@@ -4,11 +4,21 @@ export type Project = {
   title: string;
   description: string;
   href: string;
-  color: Exclude<Tone, "pink">;
+  liveHref?: string;
+  color: Tone;
   skills: string[];
 };
 
 export const projects: Project[] = [
+  {
+    title: "Learning UX Laws",
+    description:
+      "A journal for learning one UX law a day: a gallery of 30 laws with a progress bar, a notes page and small interactive before/after examples for each law, and a calendar of what I learned when.",
+    href: "https://github.com/sejal-agarwal/ux-laws",
+    liveHref: "https://sejalagarwal.ca/ux-laws",
+    color: "pink",
+    skills: ["Next.js", "TypeScript", "Interactive demos"],
+  },
   {
     title: "Otter",
     description:
