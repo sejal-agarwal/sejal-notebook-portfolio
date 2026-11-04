@@ -18,7 +18,7 @@ export function ProjectBoard({ children }: { children: React.ReactNode }) {
         setVisible(true);
         observer.disconnect();
       },
-      { threshold: 0.4, rootMargin: "0px 0px -10% 0px" },
+      { threshold: 0, rootMargin: "0px 0px -15% 0px" },
     );
     observer.observe(board);
     return () => observer.disconnect();
