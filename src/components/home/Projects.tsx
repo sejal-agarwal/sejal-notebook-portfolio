@@ -22,7 +22,7 @@ export function Projects() {
             <p>{project.description}</p>
             <TagChips tags={project.skills} label="Technologies" />
             <div className="projectLinks">
-              {project.liveHref && <PillLink href={project.liveHref}>Live site</PillLink>}
+              {project.liveHref && <PillLink href={project.liveHref} rel="noreferrer" target="_blank">Live site</PillLink>}
               <PillLink href={project.href} rel="noreferrer" target="_blank">
                 View on GitHub
               </PillLink>

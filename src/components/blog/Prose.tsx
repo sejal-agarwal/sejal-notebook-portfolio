@@ -23,6 +23,12 @@ export function Prose({ children }: { children: string }) {
         components={{
           // images on their own line(s) become a row of polaroids instead of a paragraph
           p: ({ node, children }) => (isImageOnly(node) ? <div className="polaroids">{children}</div> : <p>{children}</p>),
+          // links written in a post open in a new tab
+          a: ({ href, children }) => (
+            <a href={href} rel="noreferrer" target="_blank">
+              {children}
+            </a>
+          ),
           img: ({ src, alt, title }) =>
             typeof src === "string" ? <Polaroid src={src} alt={alt ?? ""} caption={title} /> : null,
         }}
