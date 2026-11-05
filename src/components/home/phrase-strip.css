@@ -47,14 +47,11 @@
   }
 }
 
+/* Reduce Motion (common on iPads/iPhones) used to freeze the strip. It still drifts, but slowly.
+   The !importants are needed to beat the global reduced-motion reset in styles/base.css. */
 @media (prefers-reduced-motion: reduce) {
   .phraseTrack {
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: none;
+    animation-duration: 120s !important;
+    animation-iteration-count: infinite !important;
   }
-
-  .phraseSet { white-space: normal; }
-  .phraseSet + .phraseSet { display: none; }
 }
