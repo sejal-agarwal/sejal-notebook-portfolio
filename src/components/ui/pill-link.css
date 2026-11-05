@@ -11,7 +11,7 @@
   font-weight: 700;
   text-decoration: none;
   box-shadow: 3px 3px 0 var(--ink);
-  transition: box-shadow 180ms ease, translate 180ms ease;
+  transition: box-shadow var(--lift-time) ease, translate var(--lift-time) var(--lift-ease);
 }
 
 .pillLink:hover {

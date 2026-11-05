@@ -42,7 +42,7 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 700;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition: transform var(--lift-time) var(--lift-ease), box-shadow var(--lift-time) ease;
 }
 
 .tagButton[data-tone="pink"] { background: var(--pink-soft); }

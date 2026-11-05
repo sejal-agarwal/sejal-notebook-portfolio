@@ -41,7 +41,7 @@
   border-radius: 9px;
   background: #ffe98c;
   box-shadow: 6px 7px 0 var(--ink);
-  transition: opacity 800ms ease, translate 800ms cubic-bezier(0.2, 0.8, 0.58, 1), box-shadow 180ms ease;
+  transition: opacity 800ms ease, translate 800ms cubic-bezier(0.2, 0.8, 0.58, 1), box-shadow var(--lift-time) ease;
 }
 
 .aboutNote:hover { box-shadow: 8px 10px 0 var(--ink); }

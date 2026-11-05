@@ -45,7 +45,7 @@
   border-radius: 6px;
   box-shadow: 5px 6px 0 rgba(41, 38, 46, 0.85);
   opacity: 0;
-  transition: opacity 750ms ease, box-shadow 200ms ease;
+  transition: opacity 750ms ease, box-shadow var(--lift-time) ease;
 }
 
 .projectNote[data-color="blue"] { background: var(--blue-soft); }
@@ -54,9 +54,9 @@
 .projectNote:nth-child(even) { margin-top: 34px; }
 .projectNote[data-color="pink"] { background: var(--pink-soft); }
 .projectBoardVisible .projectNote { opacity: 1; }
-.projectBoardVisible .projectNote:nth-child(2) { transition-delay: 160ms; }
-.projectBoardVisible .projectNote:nth-child(3) { transition-delay: 320ms; }
-.projectBoardVisible .projectNote:nth-child(4) { transition-delay: 480ms; }
+.projectBoardVisible .projectNote:nth-child(2) { transition-delay: 160ms, 0s; }
+.projectBoardVisible .projectNote:nth-child(3) { transition-delay: 320ms, 0s; }
+.projectBoardVisible .projectNote:nth-child(4) { transition-delay: 480ms, 0s; }
 
 .projectNote:hover { box-shadow: 8px 10px 0 rgba(41, 38, 46, 0.85); }
 
@@ -131,9 +131,9 @@
   transition:
     opacity 650ms ease,
     scale 700ms cubic-bezier(0.3, 1.5, 0.5, 1),
-    translate 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    rotate 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 220ms ease;
+    translate var(--lift-time) var(--lift-ease),
+    rotate var(--lift-time) var(--lift-ease),
+    box-shadow var(--lift-time) ease;
 }
 
 .projectBoardVisible .projectDecor { opacity: 1; scale: 1; }

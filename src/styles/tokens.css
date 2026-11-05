@@ -8,6 +8,10 @@
   --sans-fallback: "Trebuchet MS", "Segoe UI", sans-serif;
   --hand-fallback: "Comic Sans MS", "Bradley Hand", cursive;
 
+  /* hover lift timing, taken from the hero polaroid so every lift feels the same */
+  --lift-time: 300ms;
+  --lift-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
   /* soft tints behind chips, cards and links (see Tone in lib/tones.ts) */
   --pink-soft: #fbe0e9;
   --blue-soft: #d9ecf6;

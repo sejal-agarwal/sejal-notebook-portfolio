@@ -76,7 +76,7 @@
   box-shadow: none;
   font-size: 15px;
   font-weight: 700;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition: transform var(--lift-time) var(--lift-ease), box-shadow var(--lift-time) ease;
 }
 
 .navLink:hover,

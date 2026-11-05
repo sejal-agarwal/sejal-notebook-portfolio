@@ -98,7 +98,7 @@
   border: 2px solid var(--ink);
   border-radius: 14px;
   box-shadow: 3px 3px 0 var(--ink);
-  transition: translate 180ms ease, box-shadow 180ms ease;
+  transition: translate var(--lift-time) var(--lift-ease), box-shadow var(--lift-time) ease;
 }
 
 .contactLink[data-color="pink"] { background: var(--pink-soft); }
