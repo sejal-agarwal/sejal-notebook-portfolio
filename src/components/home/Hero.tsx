@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Sparkle } from "@/components/ui/Sparkle";
 import { showBlog } from "@/data/site";
 import { UnderlinedPhrase } from "@/components/ui/UnderlinedPhrase";
@@ -19,9 +20,9 @@ export function Hero() {
         </p>
         {showBlog && (
           <div className="heroActions">
-            <a className="button buttonPrimary" href="#blog">
+            <Link className="button buttonPrimary" href="/blog">
               Read my blog <span aria-hidden="true">→</span>
-            </a>
+            </Link>
             <a className="button buttonSecondary" href="#contact">
               Contact me
             </a>

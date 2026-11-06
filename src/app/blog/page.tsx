@@ -22,7 +22,7 @@ export default function BlogPage() {
       <BlogHeader />
       <Section className="blogPageSection" aria-labelledby="blog-page-title">
         <SectionHeading as="h1" chapter="the notebook" id="blog-page-title">
-          All <UnderlinedPhrase>entries</UnderlinedPhrase>
+          Blog <UnderlinedPhrase>entries</UnderlinedPhrase>
         </SectionHeading>
         <Suspense fallback={null}>
           <BlogBrowser posts={posts} />

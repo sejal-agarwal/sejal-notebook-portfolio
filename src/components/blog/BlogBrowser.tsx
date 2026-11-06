@@ -82,7 +82,7 @@ export function BlogBrowser({ posts }: { posts: PostMeta[] }) {
       {results.length === 0 ? (
         <PostListEmpty>Nothing written on that page yet. Try another word or tag.</PostListEmpty>
       ) : (
-        <PostList posts={results} />
+        <PostList posts={results} revealThreshold={1} />
       )}
     </SpiralNotebook>
   );

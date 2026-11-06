@@ -9,13 +9,15 @@ type PostListProps = {
   posts: PostMetaData[];
   /** Heading level for each entry title, so it nests under the section heading. */
   headingLevel?: "h2" | "h3";
+  /** How far down the viewport (0-1) an entry's top edge must be before it fades in. */
+  revealThreshold?: number;
 };
 
-export function PostList({ posts, headingLevel: Heading = "h2" }: PostListProps) {
+export function PostList({ posts, headingLevel: Heading = "h2", revealThreshold }: PostListProps) {
   return (
     <ol className="postList">
       {posts.map((post) => (
-        <Reveal as="li" key={post.slug}>
+        <Reveal as="li" key={post.slug} threshold={revealThreshold}>
           <article className="postCard">
             <PostMeta post={post} />
             <Heading>
