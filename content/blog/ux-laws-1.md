@@ -2,7 +2,7 @@
 title: "Learning UX Laws"
 date: 2026-11-04
 summary: "Learning the laws of UX"
-tags: [projects, random thoughts, learning, ui/ux]
+tags: [projects, learning, ui/ux]
 ---
 
 Even though I'm doing Human-Computer Interaction research and have done tons of frontend development through my software internships, I feel like I haven't formally learned UI/UX principles. Honestly, I often feel like an imposter calling myself a UI/UX developer. I know I have the skills and I implicitly know a lot of the rules involved with good design and UX but I don't know the correct words for them and I definitely don't know everything.
